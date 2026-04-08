@@ -8,6 +8,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Pacifico&family=Zen+Maru+Gothic:wght@400;500;700&family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <!-- Leaflet.js (OSM 無料地図) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <style>
     .loc-hero-bg {
       position: absolute; inset: 0;
@@ -217,64 +220,62 @@
       box-shadow: 0 6px 16px rgba(255,107,122,0.35);
     }
 
-    /* ---- Map placeholder ---- */
+    /* ---- Real Map (Leaflet) ---- */
     .map-section { background: var(--surface-alt); }
-    .map-placeholder {
-      aspect-ratio: 16/6;
-      background: linear-gradient(135deg, #B3E8E5 0%, #4ECDC4 50%, #45B7D1 100%);
+
+    #store-map {
+      height: 520px;
       border-radius: var(--radius-card);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 80px;
-      position: relative;
-      overflow: hidden;
       margin-top: 40px;
+      border: 2px solid var(--border);
+      box-shadow: 0 8px 32px rgba(255,107,122,0.12);
+      z-index: 1;
     }
-    .map-placeholder::before {
-      content: 'MAP';
-      position: absolute;
-      font-family: var(--font-display);
-      font-size: clamp(60px, 12vw, 120px);
-      color: rgba(255,255,255,0.2);
-      letter-spacing: 0.1em;
+
+    /* カスタムマーカーポップアップ */
+    .leaflet-popup-content-wrapper {
+      border-radius: 20px !important;
+      border: 2px solid var(--border, #F0D9D3) !important;
+      box-shadow: 0 8px 32px rgba(255,107,122,0.2) !important;
+      padding: 0 !important;
+      overflow: hidden;
     }
-    .map-pins {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 24px;
-      flex-wrap: wrap;
-      padding: 24px;
+    .leaflet-popup-content { margin: 0 !important; width: auto !important; }
+    .leaflet-popup-tip { background: #fff !important; }
+
+    .map-popup {
+      padding: 16px 20px;
+      min-width: 200px;
     }
-    .map-pin {
-      background: rgba(255,255,255,0.95);
-      border-radius: 16px;
-      padding: 10px 18px;
-      font-size: 13px;
+    .map-popup-name {
+      font-family: "Zen Maru Gothic", "Nunito", sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: #3D2B1F;
+      margin-bottom: 2px;
+    }
+    .map-popup-en {
+      font-size: 12px;
+      color: #4ECDC4;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .map-popup-info {
+      font-size: 12px;
+      color: #8B6F61;
+      line-height: 1.7;
+    }
+    .map-popup-badge {
+      display: inline-block;
+      background: #FF6B7A;
+      color: #fff;
+      padding: 2px 10px;
+      border-radius: 9999px;
+      font-size: 11px;
       font-weight: 800;
-      color: var(--text);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
-      transition: all 0.3s var(--ease-bounce);
-      cursor: pointer;
+      margin-top: 8px;
     }
-    .map-pin:hover {
-      transform: translateY(-4px) scale(1.05);
-      box-shadow: 0 8px 24px rgba(255,107,122,0.3);
-    }
-    .map-pin-dot {
-      width: 10px; height: 10px;
-      border-radius: 50%;
-      background: var(--coral);
-      flex-shrink: 0;
-    }
-    .map-pin-dot.mint { background: var(--mint); }
-    .map-pin-dot.yellow { background: var(--yellow); }
+    .map-popup-badge.new { background: #FFD166; color: #3D2B1F; }
 
     /* ---- Catering CTA ---- */
     .catering-card {
@@ -325,10 +326,10 @@
       <span class="page-hero-float" style="bottom:20%;right:5%;animation-duration:5s;animation-delay:-1s">🏖️</span>
     </div>
     <div class="page-hero-content reveal">
-      <div class="page-hero-tag">📍 LOCATIONS</div>
+      <div class="page-hero-tag" data-en="📍 LOCATIONS">📍 LOCATIONS</div>
       <h1 class="page-hero-title">Find Us</h1>
-      <p class="page-hero-title-jp">ハワイ全島、7店舗でお待ちしています</p>
-      <p class="page-hero-desc">ワイキキ・アラモアナ・空港・カカアコ・カイルア・カポレイ・マウイ。<br>あなたの近くに、きっといやす夢があります。</p>
+      <p class="page-hero-title-jp" data-en="7 Stores Across the Hawaiian Islands">ハワイ全島、7店舗でお待ちしています</p>
+      <p class="page-hero-desc" data-en="Waikiki · Ala Moana · Airport · Kakaako · Kailua · Kapolei · Maui.<br>There's always an IYASUME near you.">ワイキキ・アラモアナ・空港・カカアコ・カイルア・カポレイ・マウイ。<br>あなたの近くに、きっといやす夢があります。</p>
     </div>
   </div>
 
@@ -358,9 +359,9 @@
       </div>
 
       <div class="island-tabs reveal">
-        <button class="island-tab active" data-island="all">🌺 全店舗</button>
-        <button class="island-tab" data-island="oahu">🏙️ オアフ島</button>
-        <button class="island-tab" data-island="maui">🌋 マウイ島</button>
+        <button class="island-tab active" data-island="all" data-en="🌺 All Stores">🌺 全店舗</button>
+        <button class="island-tab" data-island="oahu" data-en="🏙️ Oahu">🏙️ オアフ島</button>
+        <button class="island-tab" data-island="maui" data-en="🌋 Maui">🌋 マウイ島</button>
       </div>
 
       <div class="locations-grid">
@@ -629,20 +630,11 @@
   <section class="section map-section">
     <div class="section-inner">
       <div class="text-center">
-        <div class="section-tag reveal">🗺️ MAP</div>
-        <h2 class="section-title reveal reveal-delay-1">ハワイの地図で探す</h2>
+        <div class="section-tag reveal" data-en="🗺️ MAP">🗺️ MAP</div>
+        <h2 class="section-title reveal reveal-delay-1" data-en="Find Us on the Map">ハワイの地図で探す</h2>
+        <p class="section-title-en reveal reveal-delay-2" style="margin-bottom:0">Click a pin to see store details</p>
       </div>
-      <div class="map-placeholder reveal reveal-delay-2">
-        <div class="map-pins">
-          <div class="map-pin"><span class="map-pin-dot"></span>ワイキキ</div>
-          <div class="map-pin"><span class="map-pin-dot mint"></span>アラモアナ</div>
-          <div class="map-pin"><span class="map-pin-dot yellow"></span>空港</div>
-          <div class="map-pin"><span class="map-pin-dot"></span>カカアコ NEW</div>
-          <div class="map-pin"><span class="map-pin-dot mint"></span>カイルア</div>
-          <div class="map-pin"><span class="map-pin-dot"></span>カポレイ</div>
-          <div class="map-pin"><span class="map-pin-dot yellow"></span>マウイ</div>
-        </div>
-      </div>
+      <div id="store-map" class="reveal reveal-delay-2"></div>
     </div>
   </section>
 
@@ -688,6 +680,139 @@
         });
       });
     });
+
+    // =============================================
+    // Leaflet Map — 全店舗マーカー
+    // =============================================
+    const stores = [
+      {
+        name: 'ワイキキ本店',
+        nameEn: 'Waikiki Main Store',
+        lat: 21.2793, lng: -157.8294,
+        address: '2330 Kalakaua Ave, Honolulu',
+        hours: 'Mon–Fri 8:00–21:00 / Sat–Sun 8:00–22:00',
+        phone: '(808) 922-3555',
+        color: '#FF6B7A',
+        isNew: false,
+      },
+      {
+        name: 'アラモアナ店',
+        nameEn: 'Ala Moana Center',
+        lat: 21.2905, lng: -157.8445,
+        address: '1450 Ala Moana Blvd, Honolulu',
+        hours: 'Mon–Sat 9:30–21:00 / Sun 10:00–19:00',
+        phone: '(808) 944-2244',
+        color: '#4ECDC4',
+        isNew: false,
+      },
+      {
+        name: 'ホノルル空港店',
+        nameEn: 'Honolulu Airport',
+        lat: 21.3176, lng: -157.9224,
+        address: '300 Rodgers Blvd, Honolulu',
+        hours: 'Daily 5:00–22:00 (Year-round)',
+        phone: '—',
+        color: '#06D6A0',
+        isNew: false,
+      },
+      {
+        name: 'カカアコ店',
+        nameEn: 'Kakaako',
+        lat: 21.2982, lng: -157.8600,
+        address: '660 Ala Moana Blvd, Honolulu',
+        hours: 'Mon–Fri 7:30–20:00 / Sat–Sun 8:00–18:00',
+        phone: '(808) 585-1100',
+        color: '#FFD166',
+        isNew: true,
+      },
+      {
+        name: 'カイルア店',
+        nameEn: 'Kailua',
+        lat: 21.3966, lng: -157.7390,
+        address: '600 Kailua Rd, Kailua',
+        hours: 'Daily 8:00–18:00',
+        phone: '(808) 266-1155',
+        color: '#FF6B7A',
+        isNew: false,
+      },
+      {
+        name: 'カポレイ店',
+        nameEn: 'Kapolei',
+        lat: 21.3341, lng: -158.0836,
+        address: '590 Farrington Hwy, Kapolei',
+        hours: 'Mon–Sat 8:00–20:00',
+        phone: '(808) 674-0088',
+        color: '#4ECDC4',
+        isNew: false,
+      },
+      {
+        name: 'マウイ店（キヘイ）',
+        nameEn: 'Maui – Kihei',
+        lat: 20.7645, lng: -156.4451,
+        address: '1881 S Kihei Rd, Kihei, Maui',
+        hours: 'Daily 8:00–19:00',
+        phone: '(808) 874-0033',
+        color: '#FF8E6E',
+        isNew: false,
+      },
+    ];
+
+    // 地図初期化（ハワイ全体が見える中心・ズーム）
+    const map = L.map('store-map', {
+      center: [21.0, -157.5],
+      zoom: 8,
+      zoomControl: true,
+      scrollWheelZoom: false,   // スクロールでの誤ズームを防止
+    });
+
+    // OpenStreetMap タイル
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      maxZoom: 19,
+    }).addTo(map);
+
+    // カスタム SVG マーカー生成
+    function makeIcon(color, isNew) {
+      const size = 44;
+      const svg = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size + 10}" viewBox="0 0 44 54">
+          <filter id="sh"><feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="rgba(0,0,0,0.25)"/></filter>
+          <circle cx="22" cy="22" r="20" fill="${color}" filter="url(#sh)"/>
+          <circle cx="22" cy="22" r="14" fill="rgba(255,255,255,0.25)"/>
+          <text x="22" y="28" text-anchor="middle" font-size="16">🍙</text>
+          <polygon points="16,38 28,38 22,52" fill="${color}"/>
+          ${isNew ? `<circle cx="36" cy="8" r="8" fill="#FFD166" stroke="#fff" stroke-width="2"/>
+          <text x="36" y="12" text-anchor="middle" font-size="8" font-weight="bold" fill="#3D2B1F">N</text>` : ''}
+        </svg>`;
+      return L.divIcon({
+        className: '',
+        html: `<div style="width:${size}px;height:${size + 10}px">${svg}</div>`,
+        iconSize:   [size, size + 10],
+        iconAnchor: [size / 2, size + 10],
+        popupAnchor:[0, -(size + 10)],
+      });
+    }
+
+    // マーカー & ポップアップ追加
+    stores.forEach(s => {
+      const marker = L.marker([s.lat, s.lng], { icon: makeIcon(s.color, s.isNew) }).addTo(map);
+      marker.bindPopup(`
+        <div class="map-popup">
+          <div class="map-popup-name">${s.name}</div>
+          <div class="map-popup-en">${s.nameEn}</div>
+          <div class="map-popup-info">
+            📍 ${s.address}<br>
+            🕐 ${s.hours}<br>
+            📞 ${s.phone}
+          </div>
+          ${s.isNew ? '<div class="map-popup-badge new">🌟 NEW OPEN</div>' : '<div class="map-popup-badge">● OPEN</div>'}
+        </div>
+      `, { maxWidth: 260 });
+    });
+
+    // スクロールでページ操作しつつ、マップをクリックで有効化
+    map.on('click', () => { map.scrollWheelZoom.enable(); });
+    map.on('mouseout', () => { map.scrollWheelZoom.disable(); });
   </script>
 </body>
 </html>
