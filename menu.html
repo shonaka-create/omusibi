@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MENU | MUSUBI CAFE IYASUME</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Pacifico&family=Zen+Maru+Gothic:wght@400;500;700&family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ---- Page Hero ---- */
+    .page-hero { background: var(--bg); }
+    .menu-hero-bg {
+      position: absolute; inset: 0;
+      background: linear-gradient(160deg, #FFF0EC 0%, #E8F9F8 100%);
+    }
+    .menu-hero-bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 80% 50%, rgba(255,107,122,0.12) 0%, transparent 60%),
+                  radial-gradient(ellipse at 20% 80%, rgba(78,205,196,0.12) 0%, transparent 50%);
+    }
+
+    /* ---- Filter ---- */
+    .filter-bar {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 48px;
+    }
+    .filter-btn {
+      padding: 10px 24px;
+      border-radius: var(--radius-pill);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      border: 2px solid var(--border);
+      background: var(--surface);
+      color: var(--text-sub);
+      transition: all 0.3s var(--ease-bounce);
+      font-family: var(--font-body);
+    }
+    .filter-btn.active,
+    .filter-btn:hover {
+      background: var(--coral);
+      border-color: var(--coral);
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(255,107,122,0.35);
+    }
+    .filter-btn.mint.active,
+    .filter-btn.mint:hover {
+      background: var(--mint);
+      border-color: var(--mint);
+      box-shadow: 0 6px 18px rgba(78,205,196,0.35);
+    }
+    .filter-btn.yellow.active,
+    .filter-btn.yellow:hover {
+      background: var(--yellow);
+      border-color: var(--yellow);
+      color: var(--text);
+      box-shadow: 0 6px 18px rgba(255,209,102,0.35);
+    }
+
+    /* ---- Menu Grid ---- */
+    .menu-section { margin-bottom: 72px; }
+    .menu-section-title {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 32px;
+      padding-bottom: 16px;
+      border-bottom: 2px solid var(--border);
+    }
+    .menu-section-title h2 {
+      font-family: "Zen Maru Gothic", sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--text);
+      font-feature-settings: "palt" 1;
+    }
+    .menu-section-title .section-tag { margin-bottom: 0; }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .menu-card {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-card);
+      overflow: hidden;
+      transition: all 0.4s var(--ease-bounce);
+      cursor: pointer;
+      position: relative;
+    }
+    .menu-card:hover {
+      transform: translateY(-10px) rotate(0.5deg);
+      box-shadow: 0 20px 48px rgba(255,107,122,0.2);
+      border-color: var(--coral);
+    }
+    .menu-card-img {
+      aspect-ratio: 4/3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 68px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.5s var(--ease-smooth);
+    }
+    .menu-card:hover .menu-card-img { transform: scale(1.05); }
+
+    .mc1  { background: linear-gradient(135deg, #FFB3BB, #FFD166); }
+    .mc2  { background: linear-gradient(135deg, #B3E8E5, #4ECDC4); }
+    .mc3  { background: linear-gradient(135deg, #FFD166, #FF8E6E); }
+    .mc4  { background: linear-gradient(135deg, #C8B8FF, #FF6B7A); }
+    .mc5  { background: linear-gradient(135deg, #B3F0E4, #3DBDB5); }
+    .mc6  { background: linear-gradient(135deg, #FFB3BB, #C8B8FF); }
+    .mc7  { background: linear-gradient(135deg, #FFD166, #FFB3BB); }
+    .mc8  { background: linear-gradient(135deg, #4ECDC4, #45B7D1); }
+    .mc9  { background: linear-gradient(135deg, #FF8E6E, #FFD166); }
+    .mc10 { background: linear-gradient(135deg, #C8B8FF, #4ECDC4); }
+    .mc11 { background: linear-gradient(135deg, #B3E8E5, #FFD166); }
+    .mc12 { background: linear-gradient(135deg, #FFB3BB, #FF6B7A); }
+    .mc13 { background: linear-gradient(135deg, #98D8C8, #4ECDC4); }
+    .mc14 { background: linear-gradient(135deg, #FFD166, #FF6B7A); }
+    .mc15 { background: linear-gradient(135deg, #C8B8FF, #FFB3BB); }
+    .mc16 { background: linear-gradient(135deg, #45B7D1, #4ECDC4); }
+
+    .menu-card-badge-wrap {
+      position: absolute;
+      top: 12px; right: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      align-items: flex-end;
+    }
+
+    .menu-card-body { padding: 20px; }
+    .menu-card-name {
+      font-family: "Zen Maru Gothic", sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 2px;
+      font-feature-settings: "palt" 1;
+    }
+    .menu-card-name-en {
+      font-family: var(--font-display);
+      font-size: 12px;
+      color: var(--coral);
+      margin-bottom: 10px;
+    }
+    .menu-card-desc {
+      font-size: 13px;
+      color: var(--text-sub);
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+    .menu-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .menu-card-price {
+      font-family: var(--font-display);
+      font-size: 24px;
+      color: var(--coral);
+    }
+    .menu-card-price span { font-size: 13px; }
+    .menu-card-tags { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+    .tag {
+      padding: 3px 10px;
+      border-radius: var(--radius-pill);
+      font-size: 11px;
+      font-weight: 700;
+      background: rgba(78,205,196,0.12);
+      color: var(--mint-dark);
+    }
+    .tag-gf { background: rgba(6,214,160,0.12); color: #05A87A; }
+    .tag-v  { background: rgba(255,209,102,0.2); color: #B8860B; }
+
+    /* ---- Featured / Hero Card ---- */
+    .featured-card {
+      background: linear-gradient(135deg, var(--coral), #FF8E6E);
+      border-radius: var(--radius-card);
+      padding: 40px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 32px;
+      margin-bottom: 48px;
+      position: relative;
+      overflow: hidden;
+      color: #fff;
+    }
+    .featured-card::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23fff' fill-opacity='0.06'%3E%3Ccircle cx='20' cy='20' r='3'/%3E%3C/g%3E%3C/svg%3E");
+    }
+    .featured-card > * { position: relative; }
+    .featured-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.25);
+      padding: 4px 14px;
+      border-radius: var(--radius-pill);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      margin-bottom: 12px;
+    }
+    .featured-title {
+      font-family: "Zen Maru Gothic", sans-serif;
+      font-size: clamp(22px, 3vw, 32px);
+      font-weight: 700;
+      margin-bottom: 8px;
+      font-feature-settings: "palt" 1;
+    }
+    .featured-desc { font-size: 14px; opacity: 0.9; margin-bottom: 20px; line-height: 1.7; }
+    .featured-price { font-family: var(--font-display); font-size: 36px; }
+    .featured-emoji { font-size: clamp(80px, 12vw, 140px); animation: heroFloat 4s ease-in-out infinite; line-height: 1; }
+
+    /* ---- Drinks ---- */
+    .drink-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 20px;
+    }
+    .drink-card {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 20px;
+      padding: 24px 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      transition: all 0.35s var(--ease-bounce);
+      cursor: pointer;
+    }
+    .drink-card:hover {
+      border-color: var(--mint);
+      transform: translateY(-6px);
+      box-shadow: 0 12px 32px rgba(78,205,196,0.2);
+    }
+    .drink-icon { font-size: 40px; flex-shrink: 0; }
+    .drink-info { flex: 1; }
+    .drink-name { font-family: "Zen Maru Gothic", sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+    .drink-desc { font-size: 12px; color: var(--text-sub); line-height: 1.6; }
+    .drink-price { font-family: var(--font-display); font-size: 20px; color: var(--mint-dark); white-space: nowrap; }
+
+    /* ---- Allergy Table ---- */
+    .allergy-section {
+      background: var(--surface-alt);
+      border-radius: var(--radius-card);
+      padding: 40px;
+      margin-top: 64px;
+    }
+    .allergy-title { font-family: "Zen Maru Gothic", sans-serif; font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+    .allergy-note { font-size: 13px; color: var(--text-sub); line-height: 1.8; }
+    .allergy-icons { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 20px; }
+    .allergy-icon-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--text-sub);
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: var(--radius-pill);
+      background: var(--surface);
+      border: 1px solid var(--border);
+    }
+
+    @media (max-width: 768px) {
+      .featured-card { grid-template-columns: 1fr; }
+      .featured-emoji { font-size: 80px; text-align: center; }
+      .menu-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+    }
+    @media (max-width: 480px) {
+      .menu-grid { grid-template-columns: 1fr; }
+      .drink-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="particles" id="particles"></div>
+  <header id="header"></header>
+
+  <!-- Hero -->
+  <div class="page-hero">
+    <div class="menu-hero-bg page-hero-bg"></div>
+    <div class="page-hero-floats">
+      <span class="page-hero-float" style="top:15%;left:4%;animation-duration:6s">🍙</span>
+      <span class="page-hero-float" style="top:25%;right:6%;animation-duration:8s;animation-delay:-3s">🌺</span>
+      <span class="page-hero-float" style="bottom:20%;left:8%;animation-duration:7s;animation-delay:-1s">🥢</span>
+      <span class="page-hero-float" style="bottom:30%;right:4%;animation-duration:5s;animation-delay:-4s">🌸</span>
+    </div>
+    <div class="page-hero-content reveal">
+      <div class="page-hero-tag">🍙 OUR MENU</div>
+      <h1 class="page-hero-title">Menu</h1>
+      <p class="page-hero-title-jp">手作りおにぎりと、ハワイの恵み</p>
+      <p class="page-hero-desc">毎朝仕込む新鮮な食材で、一つひとつ丁寧に握っています。<br>グルテンフリー・ビーガン対応メニューもご用意。</p>
+    </div>
+  </div>
+
+  <!-- Ticker -->
+  <div class="news-ticker">
+    <div class="news-ticker-inner">
+      <div class="ticker-label">🌺 NEWS</div>
+      <span class="ticker-item">季節限定「桜スパムむすび」販売中 🌸</span>
+      <span class="ticker-item">DoorDashでデリバリー承り中</span>
+      <span class="ticker-item">グルテンフリーメニュー拡充しました</span>
+      <span class="ticker-item">ビーガン向けメニューも充実！</span>
+      <div class="ticker-label">🌺 NEWS</div>
+      <span class="ticker-item">季節限定「桜スパムむすび」販売中 🌸</span>
+      <span class="ticker-item">DoorDashでデリバリー承り中</span>
+      <span class="ticker-item">グルテンフリーメニュー拡充しました</span>
+      <span class="ticker-item">ビーガン向けメニューも充実！</span>
+    </div>
+  </div>
+
+  <!-- Menu Contents -->
+  <section class="section" style="background:var(--bg)">
+    <div class="section-inner">
+
+      <!-- Filter -->
+      <div class="filter-bar reveal">
+        <button class="filter-btn active" data-cat="all">🍽️ すべて</button>
+        <button class="filter-btn" data-cat="classic">🍙 クラシック</button>
+        <button class="filter-btn mint" data-cat="hawaiian">🌺 ハワイアン</button>
+        <button class="filter-btn yellow" data-cat="seasonal">🌸 季節限定</button>
+        <button class="filter-btn" data-cat="bento">🍱 ランチボックス</button>
+        <button class="filter-btn mint" data-cat="drinks">🥤 ドリンク</button>
+      </div>
+
+      <!-- Featured -->
+      <div class="featured-card reveal" data-cat="hawaiian">
+        <div>
+          <div class="featured-tag">⭐ 人気 No.1</div>
+          <div class="featured-title">スパムむすびクラシック</div>
+          <p class="featured-desc">
+            ハワイ名物スパムと甘辛醤油だれ、パリパリ海苔の最強コンビ。<br>
+            いやす夢の原点にして頂点。毎日完売必至の看板メニュー。
+          </p>
+          <div class="featured-price">$4.50</div>
+        </div>
+        <div class="featured-emoji">🍙</div>
+      </div>
+
+      <!-- Classic -->
+      <div class="menu-section" id="cat-classic">
+        <div class="menu-section-title reveal">
+          <span class="section-tag" style="margin-bottom:0">🍙 CLASSIC</span>
+          <h2>クラシックむすび</h2>
+        </div>
+        <div class="menu-grid">
+          <div class="menu-card reveal" data-cat="classic">
+            <div class="menu-card-img mc1">
+              🧂
+              <div class="menu-card-badge-wrap">
+                <span class="badge badge-success">GF</span>
+              </div>
+            </div>
+            <div class="menu-card-body">
+              <div class="menu-card-name">塩むすび</div>
+              <div class="menu-card-name-en">Shio Musubi</div>
+              <p class="menu-card-desc">沖縄の天然塩とふっくら白米。シンプルな美味しさの極み。</p>
+              <div class="menu-card-footer">
+                <div class="menu-card-price">$3<span>.50</span></div>
+                <div class="menu-card-tags"><span class="tag">クラシック</span><span class="tag-gf tag">GF</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="menu-card reveal reveal-delay-1" data-cat="classic">
+            <div class="menu-card-img mc3">🐟</div>
+            <div class="menu-card-body">
+              <div class="menu-card-name">鮭むすび</div>
+              <div class="menu-card-name-en">Salmon Musubi</div>
+              <p class="menu-card-desc">ほぐし鮭の旨みが米に染み渡る、ノスタルジックな一品。</p>
+              <div class="menu-card-footer">
+                <div class="menu-card-price">$4<span>.00</span></div>
+                <div class="menu-card-tags"><span class="tag">クラシック</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="menu-card reveal reveal-delay-2" data-cat="classic">
+            <div class="menu-card-img mc4">🫙</div>
+            <div class="menu-card-body">
+              <div class="menu-card-name">梅干しむすび</div>
+              <div class="menu-card-name-en">Umeboshi Musubi</div>
+              <p class="menu-card-desc">和歌山産の紀州梅干しを丸ごと一粒。酸っぱさがクセになる。</p>
+              <div class="menu-card-footer">
+                <div class="menu-card-price">$3<span>.50</span></div>
+                <div class="menu-card-tags"><span class="tag">クラシック</span><span class="tag-v tag">V</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="menu-card reveal reveal-delay-3" data-cat="classic">
+            <div class="menu-card-img mc7">🐓</div>
+            <div class="menu-card-body">
+              <div class="menu-card-name">照り焼きチキン</div>
+              <div class="menu-card-name-en">Teriyaki Chicken</div>
+              <p class="menu-card-desc">自家製照り焼きソースで仕上げたジューシーなチキン。</p>
+              <div class="menu-card-footer">
+                <div class="menu-card-price">$5<span>.00</span></div>
+                <div class="menu-card-tags"><span class="tag">クラシック</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hawaiian -->
+      <div class="menu-section" id="cat-hawaiian">
+        <div class="menu-section-title reveal">
+          <span class="section-tag" style="margin-bottom:0;background:rgba(78,205,196,0.12);color:var(--mint-dark)">🌺 HAWAIIAN</span>
+          <h2>ハワイアンむすび</h2>
+        </div>
+        <div class="menu-grid">
+          <div class="menu-card reveal" data-cat="hawaiian">
+            <div class="menu-card-img mc2">
+              🥩
+              <div class="menu-card-badge-wrap">
+                <span class="badge badge-coral">人気</span>
+              </div>
+            </div>
+            <div class="menu-card-body">
+              <div class="menu-card-name">スパムむすびクラシック</div>
+              <div class="menu-card-name-en">Spam Musubi Classic</div>
+              <p class="menu-card-desc">ハワイ名物スパムと甘辛たれ、パリパリ海苔の最強コンビ。</p>
+              <div class="menu-card-footer">
+                <div class="menu-card-price">$4<span>.50</span></div>
+                <div class="menu-card-tags"><span class="tag">ハワイアン</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="menu-card reveal reveal-delay-1" data-cat="hawaiian">
+            <div class="menu-card-img mc8">🦐</div>
+            <div class="menu-card-body">
+              <div class="menu-card-name">エビアボカドむすび</div>
+              <div class="menu-card-name-en">Shrimp Avocado</div>
+              <p class="menu-card-desc">新鮮なエビとクリーミーなアボカドの爽やかな組み合わせ。</p>
+              <div class="menu-card-footer">
+                <div class="menu-card-price">$5<span>.50</span></div>
+                <div class="menu-card-tags"><span class="tag">ハワイアン</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="menu-card reveal reveal-delay-2" data-cat="hawaiian">
+            <div class="menu-card-img mc9">🐄</div>
+            <div class="menu-card-body">
+              <div class="menu-card-name">カルビむすび</div>
+              <div class="menu-card-name-en">Kalbi Beef</div>
+              <p class="menu-card-desc">韓国風カルビをハワイ流にアレンジ。甘辛い牛肉が絶品。</p>
+              <div class="menu-card-footer">
+                <div class="menu-card-price">$6<span>.00</span></div>
+                <div class="menu-card-tags"><span class="tag">ハワイアン</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="menu-card reveal reveal-delay-3" data-cat="hawaiian">
+            <div class="menu-card-img mc10">🥑</div>
+            <div class="menu-card-body">
+              <div class="menu-card-name">アボカドチーズむすび</div>
+              <div class="menu-card-name-en">Avocado Cheese</div>
+              <p class="menu-card-desc">ハワイ産アボカドとクリームチーズの贅沢な組み合わせ。</p>
+              <div class="menu-card-footer">
+                <div class="menu-card-price">$5<span>.00</span></div>
+                <div class="menu-card-tags"><span class="tag">ハワイアン</span><span class="tag-v tag">V</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Seasonal -->
+      <div class="menu-section" id="cat-seasonal">
+        <div class="menu-section-title reveal">
+          <span class="section-tag" style="margin-bottom:0;background:rgba(255,209,102,0.2);color:#B8860B">🌸 SEASONAL</span>
+          <h2>季節限定むすび</h2>
+        </div>
+        <div class="menu-grid">
+          <div class="menu-card reveal" data-cat="seasonal">
+            <div class="menu-card-img mc12">
+              🌸
+              <div class="menu-card-badge-wrap">
+                <span class="badge badge-mint">春限定</span>
+              </div>
+            </div>
+            <div class="menu-card-body">
+              <div class="menu-card-name">桜サーモンむすび</div>
+              <div class="menu-card-name-en">Sakura Salmon</div>
+              <p class="menu-card-desc">桜の季節だけのピンク酢飯とサーモンの特別な一品。</p>
+              <div class="menu-card-footer">
+                <div class="menu-card-price">$6<span>.00</span></div>
+                <div class="menu-card-tags"><span class="tag">春限定</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="menu-card reveal reveal-delay-1" data-cat="seasonal">
+            <div class="menu-card-img mc15">
+              🥭
+              <div class="menu-card-badge-wrap">
+                <span class="badge badge-mint">夏限定</span>
+              </div>
+            </div>
+            <div class="menu-card-body">
+              <div class="menu-card-name">マンゴースパムむすび</div>
+              <div class="menu-card-name-en">Mango Spam</div>
+              <p class="menu-card-desc">ハワイ産マンゴーとスパムの甘じょっぱいサマーコンビ。</p>
+              <div class="menu-card-footer">
+                <div class="menu-card-price">$5<span>.50</span></div>
+                <div class="menu-card-tags"><span class="tag">夏限定</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bento -->
+      <div class="menu-section" id="cat-bento">
+        <div class="menu-section-title reveal">
+          <span class="section-tag" style="margin-bottom:0">🍱 BENTO</span>
+          <h2>ランチボックス</h2>
+        </div>
+        <div class="menu-grid">
+          <div class="menu-card reveal" data-cat="bento">
+            <div class="menu-card-img mc11">🍱</div>
+            <div class="menu-card-body">
+              <div class="menu-card-name">いやす夢ランチボックス</div>
+              <div class="menu-card-name-en">IYASUME Bento</div>
+              <p class="menu-card-desc">むすび2個＋唐揚げ3個＋サラダ。ボリューム満点のセット。</p>
+              <div class="menu-card-footer">
+                <div class="menu-card-price">$12<span>.00</span></div>
+                <div class="menu-card-tags"><span class="tag">セット</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="menu-card reveal reveal-delay-1" data-cat="bento">
+            <div class="menu-card-img mc13">🥗</div>
+            <div class="menu-card-body">
+              <div class="menu-card-name">ヘルシーボックス</div>
+              <div class="menu-card-name-en">Healthy Box</div>
+              <p class="menu-card-desc">むすび2個＋グリーンサラダ＋フルーツ。ヘルシーランチに。</p>
+              <div class="menu-card-footer">
+                <div class="menu-card-price">$11<span>.00</span></div>
+                <div class="menu-card-tags"><span class="tag">ヘルシー</span><span class="tag-v tag">V</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="menu-card reveal reveal-delay-2" data-cat="bento">
+            <div class="menu-card-img mc14">👨‍👩‍👧</div>
+            <div class="menu-card-body">
+              <div class="menu-card-name">ファミリーボックス</div>
+              <div class="menu-card-name-en">Family Box</div>
+              <p class="menu-card-desc">4種のむすびが各2個、唐揚げ、フルーツ入りの大満足セット。</p>
+              <div class="menu-card-footer">
+                <div class="menu-card-price">$28<span>.00</span></div>
+                <div class="menu-card-tags"><span class="tag">ファミリー</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Drinks -->
+      <div class="menu-section" id="cat-drinks">
+        <div class="menu-section-title reveal">
+          <span class="section-tag" style="margin-bottom:0;background:rgba(78,205,196,0.12);color:var(--mint-dark)">🥤 DRINKS</span>
+          <h2>ドリンク</h2>
+        </div>
+        <div class="drink-grid">
+          <div class="drink-card reveal" data-cat="drinks">
+            <div class="drink-icon">🍵</div>
+            <div class="drink-info">
+              <div class="drink-name">抹茶ラテ</div>
+              <p class="drink-desc">京都産抹茶使用。ホット・アイス選択可</p>
+            </div>
+            <div class="drink-price">$5</div>
+          </div>
+          <div class="drink-card reveal reveal-delay-1" data-cat="drinks">
+            <div class="drink-icon">🧋</div>
+            <div class="drink-info">
+              <div class="drink-name">タピオカミルクティー</div>
+              <p class="drink-desc">もちもちタピオカたっぷり。台湾産茶葉使用</p>
+            </div>
+            <div class="drink-price">$6</div>
+          </div>
+          <div class="drink-card reveal reveal-delay-2" data-cat="drinks">
+            <div class="drink-icon">🥤</div>
+            <div class="drink-info">
+              <div class="drink-name">コナコーヒー</div>
+              <p class="drink-desc">ハワイ島コナ産100%。リッチな香り</p>
+            </div>
+            <div class="drink-price">$5</div>
+          </div>
+          <div class="drink-card reveal reveal-delay-3" data-cat="drinks">
+            <div class="drink-icon">🌺</div>
+            <div class="drink-info">
+              <div class="drink-name">ハイビスカスティー</div>
+              <p class="drink-desc">ハワイ産ハイビスカスの鮮やかなピンク。ノンカフェイン</p>
+            </div>
+            <div class="drink-price">$4</div>
+          </div>
+          <div class="drink-card reveal reveal-delay-4" data-cat="drinks">
+            <div class="drink-icon">🥭</div>
+            <div class="drink-info">
+              <div class="drink-name">マンゴースムージー</div>
+              <p class="drink-desc">ハワイ産マンゴーをそのまま。濃厚な味わい</p>
+            </div>
+            <div class="drink-price">$7</div>
+          </div>
+          <div class="drink-card reveal reveal-delay-5" data-cat="drinks">
+            <div class="drink-icon">💧</div>
+            <div class="drink-info">
+              <div class="drink-name">スパークリングウォーター</div>
+              <p class="drink-desc">ハワイの天然水使用。爽やかな炭酸</p>
+            </div>
+            <div class="drink-price">$3</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Allergy -->
+      <div class="allergy-section reveal">
+        <div class="allergy-title">🌿 アレルギー・食事制限について</div>
+        <p class="allergy-note">
+          当店ではアレルギーをお持ちのお客様にも安心してお楽しみいただけるよう、食材情報を開示しています。
+          ご注文の際はスタッフまでお気軽にお申し付けください。
+        </p>
+        <div class="allergy-icons">
+          <div class="allergy-icon-item">✅ GF — グルテンフリー</div>
+          <div class="allergy-icon-item">🌱 V — ビーガン対応</div>
+          <div class="allergy-icon-item">🥚 卵不使用メニューあり</div>
+          <div class="allergy-icon-item">🥜 ナッツ不使用メニューあり</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CTA Banner -->
+  <div class="highlight-banner">
+    <div class="section-inner">
+      <div class="reveal">
+        <h2 class="highlight-title">🛵 DoorDashでデリバリー</h2>
+        <p class="highlight-desc">ホノルル全域へ温かいうちにお届け。<br>今すぐ注文してみてください。</p>
+        <a href="#" class="btn-white">今すぐ注文する →</a>
+      </div>
+    </div>
+  </div>
+
+  <footer id="footer"></footer>
+  <button id="back-top" aria-label="トップへ戻る">↑</button>
+
+  <script src="components.js"></script>
+  <script>
+    // Filter
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const menuCards  = document.querySelectorAll('[data-cat]');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const cat = btn.dataset.cat;
+        menuCards.forEach((card, i) => {
+          const match = cat === 'all' || card.dataset.cat === cat;
+          card.style.opacity = '0';
+          card.style.transform = 'translateY(20px)';
+          setTimeout(() => {
+            card.style.display = match ? '' : 'none';
+            if (match) {
+              setTimeout(() => {
+                card.style.transition = 'all 0.4s var(--ease-bounce, cubic-bezier(0.34,1.56,0.64,1))';
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+              }, i * 40);
+            }
+          }, 100);
+        });
+      });
+    });
+  </script>
+</body>
+</html>

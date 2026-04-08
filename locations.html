@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LOCATIONS | MUSUBI CAFE IYASUME</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Pacifico&family=Zen+Maru+Gothic:wght@400;500;700&family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .loc-hero-bg {
+      position: absolute; inset: 0;
+      background: linear-gradient(160deg, #E8F9F8 0%, #FFF0EC 100%);
+    }
+    .loc-hero-bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 70% 40%, rgba(78,205,196,0.18) 0%, transparent 55%),
+                  radial-gradient(ellipse at 20% 70%, rgba(255,107,122,0.12) 0%, transparent 50%);
+    }
+
+    /* ---- Island tabs ---- */
+    .island-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 56px;
+    }
+    .island-tab {
+      padding: 12px 28px;
+      border-radius: var(--radius-pill);
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      border: 2px solid var(--border);
+      background: var(--surface);
+      color: var(--text-sub);
+      transition: all 0.3s var(--ease-bounce);
+      font-family: var(--font-body);
+    }
+    .island-tab.active,
+    .island-tab:hover {
+      background: var(--mint);
+      border-color: var(--mint);
+      color: #fff;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(78,205,196,0.4);
+    }
+
+    /* ---- Locations grid ---- */
+    .locations-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 28px;
+    }
+
+    .loc-card {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-card);
+      overflow: hidden;
+      transition: all 0.4s var(--ease-bounce);
+    }
+    .loc-card:hover {
+      transform: translateY(-10px) rotate(0.3deg);
+      box-shadow: 0 20px 48px rgba(255,107,122,0.18);
+      border-color: var(--coral);
+    }
+
+    .loc-card-img {
+      aspect-ratio: 16/8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 64px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.5s var(--ease-smooth);
+    }
+    .loc-card:hover .loc-card-img { transform: scale(1.06); }
+
+    .li1 { background: linear-gradient(135deg, #4ECDC4, #45B7D1); }
+    .li2 { background: linear-gradient(135deg, #FF6B7A, #FFB347); }
+    .li3 { background: linear-gradient(135deg, #A8E6CF, #3DBDB5); }
+    .li4 { background: linear-gradient(135deg, #FFD93D, #FF6B7A); }
+    .li5 { background: linear-gradient(135deg, #C3B1E1, #FF6B7A); }
+    .li6 { background: linear-gradient(135deg, #4ECDC4, #FFD166); }
+    .li7 { background: linear-gradient(135deg, #FF6B7A, #4ECDC4); }
+
+    .loc-status {
+      position: absolute;
+      top: 14px; left: 14px;
+      padding: 5px 14px;
+      border-radius: var(--radius-pill);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+    }
+    .loc-status-open   { background: var(--success); color: #fff; }
+    .loc-status-closed { background: rgba(0,0,0,0.4); color: #fff; }
+    .loc-status-new    { background: var(--yellow); color: var(--text); animation: badgePulse 2s ease-in-out infinite; }
+    @keyframes badgePulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.08)} }
+
+    .loc-card-body { padding: 24px; }
+    .loc-card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .loc-name {
+      font-family: "Zen Maru Gothic", sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 2px;
+      font-feature-settings: "palt" 1;
+    }
+    .loc-name-en {
+      font-family: var(--font-display);
+      font-size: 13px;
+      color: var(--mint);
+    }
+    .loc-rating {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--yellow-dark, #B8860B);
+      background: rgba(255,209,102,0.15);
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      flex-shrink: 0;
+    }
+
+    .loc-info {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+      padding: 16px;
+      background: var(--bg);
+      border-radius: 16px;
+    }
+    .loc-info-item {
+      display: flex;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--text-sub);
+      align-items: flex-start;
+    }
+    .loc-info-icon { font-size: 15px; flex-shrink: 0; margin-top: 1px; }
+
+    .loc-hours {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 4px 16px;
+      font-size: 12px;
+      color: var(--text-sub);
+      margin-bottom: 20px;
+      padding: 14px 16px;
+      background: var(--bg);
+      border-radius: 14px;
+    }
+    .loc-hours-day { font-weight: 700; color: var(--text); }
+
+    .loc-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .btn-loc {
+      padding: 12px;
+      border-radius: 14px;
+      font-size: 13px;
+      font-weight: 800;
+      text-align: center;
+      cursor: pointer;
+      border: none;
+      font-family: var(--font-body);
+      transition: all 0.3s var(--ease-bounce);
+      letter-spacing: 0.04em;
+    }
+    .btn-loc-coral {
+      background: var(--coral);
+      color: #fff;
+    }
+    .btn-loc-coral:hover {
+      background: var(--coral-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(255,107,122,0.4);
+    }
+    .btn-loc-mint {
+      background: rgba(78,205,196,0.12);
+      color: var(--mint-dark);
+    }
+    .btn-loc-mint:hover {
+      background: var(--mint);
+      color: #fff;
+      transform: translateY(-2px);
+    }
+    .btn-loc-full {
+      grid-column: 1 / -1;
+      background: rgba(255,107,122,0.08);
+      color: var(--coral);
+      border: 1.5px solid var(--border);
+    }
+    .btn-loc-full:hover {
+      background: var(--coral);
+      color: #fff;
+      border-color: var(--coral);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(255,107,122,0.35);
+    }
+
+    /* ---- Map placeholder ---- */
+    .map-section { background: var(--surface-alt); }
+    .map-placeholder {
+      aspect-ratio: 16/6;
+      background: linear-gradient(135deg, #B3E8E5 0%, #4ECDC4 50%, #45B7D1 100%);
+      border-radius: var(--radius-card);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 80px;
+      position: relative;
+      overflow: hidden;
+      margin-top: 40px;
+    }
+    .map-placeholder::before {
+      content: 'MAP';
+      position: absolute;
+      font-family: var(--font-display);
+      font-size: clamp(60px, 12vw, 120px);
+      color: rgba(255,255,255,0.2);
+      letter-spacing: 0.1em;
+    }
+    .map-pins {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      padding: 24px;
+    }
+    .map-pin {
+      background: rgba(255,255,255,0.95);
+      border-radius: 16px;
+      padding: 10px 18px;
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+      transition: all 0.3s var(--ease-bounce);
+      cursor: pointer;
+    }
+    .map-pin:hover {
+      transform: translateY(-4px) scale(1.05);
+      box-shadow: 0 8px 24px rgba(255,107,122,0.3);
+    }
+    .map-pin-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--coral);
+      flex-shrink: 0;
+    }
+    .map-pin-dot.mint { background: var(--mint); }
+    .map-pin-dot.yellow { background: var(--yellow); }
+
+    /* ---- Catering CTA ---- */
+    .catering-card {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: 40px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 32px;
+      margin-top: 64px;
+      transition: all 0.4s var(--ease-bounce);
+    }
+    .catering-card:hover {
+      border-color: var(--mint);
+      box-shadow: 0 12px 32px rgba(78,205,196,0.18);
+    }
+    .catering-title {
+      font-family: "Zen Maru Gothic", sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+      font-feature-settings: "palt" 1;
+    }
+    .catering-desc { font-size: 14px; color: var(--text-sub); line-height: 1.8; margin-bottom: 20px; }
+    .catering-emoji { font-size: 80px; }
+
+    @media (max-width: 768px) {
+      .locations-grid { grid-template-columns: 1fr; }
+      .catering-card { grid-template-columns: 1fr; }
+      .catering-emoji { font-size: 56px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <div class="particles" id="particles"></div>
+  <header id="header"></header>
+
+  <!-- Hero -->
+  <div class="page-hero">
+    <div class="loc-hero-bg page-hero-bg"></div>
+    <div class="page-hero-floats">
+      <span class="page-hero-float" style="top:15%;left:4%;animation-duration:7s">📍</span>
+      <span class="page-hero-float" style="top:20%;right:6%;animation-duration:6s;animation-delay:-2s">🌺</span>
+      <span class="page-hero-float" style="bottom:25%;left:8%;animation-duration:8s;animation-delay:-4s">🌊</span>
+      <span class="page-hero-float" style="bottom:20%;right:5%;animation-duration:5s;animation-delay:-1s">🏖️</span>
+    </div>
+    <div class="page-hero-content reveal">
+      <div class="page-hero-tag">📍 LOCATIONS</div>
+      <h1 class="page-hero-title">Find Us</h1>
+      <p class="page-hero-title-jp">ハワイ全島、7店舗でお待ちしています</p>
+      <p class="page-hero-desc">ワイキキ・アラモアナ・空港・カカアコ・カイルア・カポレイ・マウイ。<br>あなたの近くに、きっといやす夢があります。</p>
+    </div>
+  </div>
+
+  <!-- Ticker -->
+  <div class="news-ticker">
+    <div class="news-ticker-inner">
+      <div class="ticker-label">📍 LOCATIONS</div>
+      <span class="ticker-item">【NEW】カカアコ店グランドオープン！</span>
+      <span class="ticker-item">ホノルル空港店は年中無休・5:00〜22:00営業</span>
+      <span class="ticker-item">マウイ島キヘイ店も好評営業中</span>
+      <span class="ticker-item">全店舗でDoorDashデリバリー対応</span>
+      <div class="ticker-label">📍 LOCATIONS</div>
+      <span class="ticker-item">【NEW】カカアコ店グランドオープン！</span>
+      <span class="ticker-item">ホノルル空港店は年中無休・5:00〜22:00営業</span>
+      <span class="ticker-item">マウイ島キヘイ店も好評営業中</span>
+      <span class="ticker-item">全店舗でDoorDashデリバリー対応</span>
+    </div>
+  </div>
+
+  <!-- Locations -->
+  <section class="section" style="background:var(--bg)">
+    <div class="section-inner">
+      <div class="text-center">
+        <div class="section-tag reveal">🏝️ ALL STORES</div>
+        <h2 class="section-title reveal reveal-delay-1">全7店舗一覧</h2>
+        <p class="section-title-en reveal reveal-delay-2">Our Locations Across Hawaii</p>
+      </div>
+
+      <div class="island-tabs reveal">
+        <button class="island-tab active" data-island="all">🌺 全店舗</button>
+        <button class="island-tab" data-island="oahu">🏙️ オアフ島</button>
+        <button class="island-tab" data-island="maui">🌋 マウイ島</button>
+      </div>
+
+      <div class="locations-grid">
+
+        <!-- ワイキキ -->
+        <div class="loc-card reveal" data-island="oahu">
+          <div class="loc-card-img li1">
+            🏖️
+            <div class="loc-status loc-status-open">● OPEN</div>
+          </div>
+          <div class="loc-card-body">
+            <div class="loc-card-header">
+              <div>
+                <div class="loc-name">ワイキキ本店</div>
+                <div class="loc-name-en">Waikiki Main Store</div>
+              </div>
+              <div class="loc-rating">⭐ 4.8</div>
+            </div>
+            <div class="loc-info">
+              <div class="loc-info-item">
+                <span class="loc-info-icon">📍</span>
+                <span>2330 Kalakaua Ave, Honolulu, HI 96815</span>
+              </div>
+              <div class="loc-info-item">
+                <span class="loc-info-icon">📞</span>
+                <span>(808) 922-3555</span>
+              </div>
+            </div>
+            <div class="loc-hours">
+              <span class="loc-hours-day">月〜金</span><span>8:00 – 21:00</span>
+              <span class="loc-hours-day">土・日</span><span>8:00 – 22:00</span>
+            </div>
+            <div class="loc-actions">
+              <button class="btn-loc btn-loc-coral">🍙 メニュー</button>
+              <button class="btn-loc btn-loc-mint">🗺️ マップ</button>
+              <button class="btn-loc btn-loc-full">🛵 DoorDashで注文</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- アラモアナ -->
+        <div class="loc-card reveal reveal-delay-1" data-island="oahu">
+          <div class="loc-card-img li2">
+            🛍️
+            <div class="loc-status loc-status-open">● OPEN</div>
+          </div>
+          <div class="loc-card-body">
+            <div class="loc-card-header">
+              <div>
+                <div class="loc-name">アラモアナ店</div>
+                <div class="loc-name-en">Ala Moana Center</div>
+              </div>
+              <div class="loc-rating">⭐ 4.7</div>
+            </div>
+            <div class="loc-info">
+              <div class="loc-info-item">
+                <span class="loc-info-icon">📍</span>
+                <span>1450 Ala Moana Blvd, Honolulu, HI 96814</span>
+              </div>
+              <div class="loc-info-item">
+                <span class="loc-info-icon">📞</span>
+                <span>(808) 944-2244</span>
+              </div>
+            </div>
+            <div class="loc-hours">
+              <span class="loc-hours-day">月〜土</span><span>9:30 – 21:00</span>
+              <span class="loc-hours-day">日曜日</span><span>10:00 – 19:00</span>
+            </div>
+            <div class="loc-actions">
+              <button class="btn-loc btn-loc-coral">🍙 メニュー</button>
+              <button class="btn-loc btn-loc-mint">🗺️ マップ</button>
+              <button class="btn-loc btn-loc-full">🛵 DoorDashで注文</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 空港 -->
+        <div class="loc-card reveal reveal-delay-2" data-island="oahu">
+          <div class="loc-card-img li3">
+            ✈️
+            <div class="loc-status loc-status-open">● OPEN</div>
+          </div>
+          <div class="loc-card-body">
+            <div class="loc-card-header">
+              <div>
+                <div class="loc-name">ホノルル空港店</div>
+                <div class="loc-name-en">Honolulu Airport</div>
+              </div>
+              <div class="loc-rating">⭐ 4.6</div>
+            </div>
+            <div class="loc-info">
+              <div class="loc-info-item">
+                <span class="loc-info-icon">📍</span>
+                <span>300 Rodgers Blvd, Honolulu, HI 96819<br><small style="color:var(--coral);font-weight:700">第2ターミナル 国際線出発ゲート付近</small></span>
+              </div>
+            </div>
+            <div class="loc-hours">
+              <span class="loc-hours-day">毎日</span><span>5:00 – 22:00（年中無休）</span>
+            </div>
+            <div class="loc-actions">
+              <button class="btn-loc btn-loc-coral">🍙 メニュー</button>
+              <button class="btn-loc btn-loc-mint">🗺️ マップ</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- カカアコ -->
+        <div class="loc-card reveal reveal-delay-3" data-island="oahu">
+          <div class="loc-card-img li4">
+            🏙️
+            <div class="loc-status loc-status-new">🌟 NEW OPEN</div>
+          </div>
+          <div class="loc-card-body">
+            <div class="loc-card-header">
+              <div>
+                <div class="loc-name">カカアコ店</div>
+                <div class="loc-name-en">Kakaako</div>
+              </div>
+              <div class="loc-rating">⭐ 4.9</div>
+            </div>
+            <div class="loc-info">
+              <div class="loc-info-item">
+                <span class="loc-info-icon">📍</span>
+                <span>660 Ala Moana Blvd, Honolulu, HI 96813</span>
+              </div>
+              <div class="loc-info-item">
+                <span class="loc-info-icon">📞</span>
+                <span>(808) 585-1100</span>
+              </div>
+            </div>
+            <div class="loc-hours">
+              <span class="loc-hours-day">月〜金</span><span>7:30 – 20:00</span>
+              <span class="loc-hours-day">土・日</span><span>8:00 – 18:00</span>
+            </div>
+            <div class="loc-actions">
+              <button class="btn-loc btn-loc-coral">🍙 メニュー</button>
+              <button class="btn-loc btn-loc-mint">🗺️ マップ</button>
+              <button class="btn-loc btn-loc-full">🛵 DoorDashで注文</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- カイルア -->
+        <div class="loc-card reveal reveal-delay-4" data-island="oahu">
+          <div class="loc-card-img li5">
+            🌿
+            <div class="loc-status loc-status-open">● OPEN</div>
+          </div>
+          <div class="loc-card-body">
+            <div class="loc-card-header">
+              <div>
+                <div class="loc-name">カイルア店</div>
+                <div class="loc-name-en">Kailua</div>
+              </div>
+              <div class="loc-rating">⭐ 4.8</div>
+            </div>
+            <div class="loc-info">
+              <div class="loc-info-item">
+                <span class="loc-info-icon">📍</span>
+                <span>600 Kailua Rd, Kailua, HI 96734</span>
+              </div>
+              <div class="loc-info-item">
+                <span class="loc-info-icon">📞</span>
+                <span>(808) 266-1155</span>
+              </div>
+            </div>
+            <div class="loc-hours">
+              <span class="loc-hours-day">毎日</span><span>8:00 – 18:00</span>
+            </div>
+            <div class="loc-actions">
+              <button class="btn-loc btn-loc-coral">🍙 メニュー</button>
+              <button class="btn-loc btn-loc-mint">🗺️ マップ</button>
+              <button class="btn-loc btn-loc-full">🛵 DoorDashで注文</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- カポレイ -->
+        <div class="loc-card reveal reveal-delay-5" data-island="oahu">
+          <div class="loc-card-img li6">
+            🌴
+            <div class="loc-status loc-status-open">● OPEN</div>
+          </div>
+          <div class="loc-card-body">
+            <div class="loc-card-header">
+              <div>
+                <div class="loc-name">カポレイ店</div>
+                <div class="loc-name-en">Kapolei</div>
+              </div>
+              <div class="loc-rating">⭐ 4.7</div>
+            </div>
+            <div class="loc-info">
+              <div class="loc-info-item">
+                <span class="loc-info-icon">📍</span>
+                <span>590 Farrington Hwy, Kapolei, HI 96707</span>
+              </div>
+              <div class="loc-info-item">
+                <span class="loc-info-icon">📞</span>
+                <span>(808) 674-0088</span>
+              </div>
+            </div>
+            <div class="loc-hours">
+              <span class="loc-hours-day">月〜土</span><span>8:00 – 20:00</span>
+              <span class="loc-hours-day">日曜日</span><span>休業</span>
+            </div>
+            <div class="loc-actions">
+              <button class="btn-loc btn-loc-coral">🍙 メニュー</button>
+              <button class="btn-loc btn-loc-mint">🗺️ マップ</button>
+              <button class="btn-loc btn-loc-full">🛵 DoorDashで注文</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- マウイ -->
+        <div class="loc-card reveal reveal-delay-6" data-island="maui">
+          <div class="loc-card-img li7">
+            🌋
+            <div class="loc-status loc-status-open">● OPEN</div>
+          </div>
+          <div class="loc-card-body">
+            <div class="loc-card-header">
+              <div>
+                <div class="loc-name">マウイ店（キヘイ）</div>
+                <div class="loc-name-en">Maui – Kihei</div>
+              </div>
+              <div class="loc-rating">⭐ 4.9</div>
+            </div>
+            <div class="loc-info">
+              <div class="loc-info-item">
+                <span class="loc-info-icon">📍</span>
+                <span>1881 S Kihei Rd, Kihei, Maui, HI 96753</span>
+              </div>
+              <div class="loc-info-item">
+                <span class="loc-info-icon">📞</span>
+                <span>(808) 874-0033</span>
+              </div>
+            </div>
+            <div class="loc-hours">
+              <span class="loc-hours-day">毎日</span><span>8:00 – 19:00</span>
+            </div>
+            <div class="loc-actions">
+              <button class="btn-loc btn-loc-coral">🍙 メニュー</button>
+              <button class="btn-loc btn-loc-mint">🗺️ マップ</button>
+              <button class="btn-loc btn-loc-full">🛵 DoorDashで注文</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Catering CTA -->
+      <div class="catering-card reveal">
+        <div>
+          <div class="section-tag" style="margin-bottom:12px">🍙 CATERING</div>
+          <div class="catering-title">ケータリングのご依頼</div>
+          <p class="catering-desc">パーティー・ウェディング・企業イベントなど、各種ケータリングに対応しています。<br>最低20名様から受付。まずはお気軽にご相談ください。</p>
+          <a href="contact.html" class="btn-primary">📩 ケータリングを相談する</a>
+        </div>
+        <div class="catering-emoji">🍱</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Map -->
+  <section class="section map-section">
+    <div class="section-inner">
+      <div class="text-center">
+        <div class="section-tag reveal">🗺️ MAP</div>
+        <h2 class="section-title reveal reveal-delay-1">ハワイの地図で探す</h2>
+      </div>
+      <div class="map-placeholder reveal reveal-delay-2">
+        <div class="map-pins">
+          <div class="map-pin"><span class="map-pin-dot"></span>ワイキキ</div>
+          <div class="map-pin"><span class="map-pin-dot mint"></span>アラモアナ</div>
+          <div class="map-pin"><span class="map-pin-dot yellow"></span>空港</div>
+          <div class="map-pin"><span class="map-pin-dot"></span>カカアコ NEW</div>
+          <div class="map-pin"><span class="map-pin-dot mint"></span>カイルア</div>
+          <div class="map-pin"><span class="map-pin-dot"></span>カポレイ</div>
+          <div class="map-pin"><span class="map-pin-dot yellow"></span>マウイ</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Banner -->
+  <div class="highlight-banner">
+    <div class="section-inner">
+      <div class="reveal">
+        <h2 class="highlight-title">🛵 どこからでもデリバリー</h2>
+        <p class="highlight-desc">DoorDashでホノルル全域にお届け。<br>店舗に来られない日も、いやす夢のおにぎりをどうぞ。</p>
+        <a href="#" class="btn-white">DoorDashで注文する</a>
+      </div>
+    </div>
+  </div>
+
+  <footer id="footer"></footer>
+  <button id="back-top" aria-label="トップへ戻る">↑</button>
+
+  <script src="components.js"></script>
+  <script>
+    // Island filter
+    const islandTabs  = document.querySelectorAll('.island-tab');
+    const locCards    = document.querySelectorAll('.loc-card');
+
+    islandTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        islandTabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        const island = tab.dataset.island;
+        locCards.forEach((card, i) => {
+          const match = island === 'all' || card.dataset.island === island;
+          card.style.opacity = '0';
+          card.style.transform = 'translateY(20px)';
+          setTimeout(() => {
+            card.style.display = match ? '' : 'none';
+            if (match) {
+              setTimeout(() => {
+                card.style.transition = 'opacity 0.4s ease, transform 0.4s cubic-bezier(0.34,1.56,0.64,1)';
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+              }, i * 50);
+            }
+          }, 80);
+        });
+      });
+    });
+  </script>
+</body>
+</html>

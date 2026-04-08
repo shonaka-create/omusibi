@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CONTACT | MUSUBI CAFE IYASUME</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Pacifico&family=Zen+Maru+Gothic:wght@400;500;700&family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .contact-hero-bg {
+      position: absolute; inset: 0;
+      background: linear-gradient(160deg, #FFF0EC 0%, #F0FFFE 100%);
+    }
+    .contact-hero-bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 80% 30%, rgba(255,107,122,0.14) 0%, transparent 55%),
+                  radial-gradient(ellipse at 10% 80%, rgba(78,205,196,0.12) 0%, transparent 50%);
+    }
+
+    /* ---- Layout ---- */
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 56px;
+      align-items: flex-start;
+    }
+
+    /* ---- Contact Info ---- */
+    .contact-info {}
+    .contact-info-card {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: 32px;
+      margin-bottom: 20px;
+      transition: all 0.35s var(--ease-bounce);
+    }
+    .contact-info-card:hover {
+      border-color: var(--coral);
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(255,107,122,0.15);
+    }
+    .contact-info-icon { font-size: 36px; margin-bottom: 12px; }
+    .contact-info-title {
+      font-family: "Zen Maru Gothic", sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 6px;
+      font-feature-settings: "palt" 1;
+    }
+    .contact-info-value {
+      font-size: 14px;
+      color: var(--text-sub);
+      line-height: 1.8;
+    }
+    .contact-info-link {
+      color: var(--coral);
+      font-weight: 700;
+      transition: opacity 0.2s;
+    }
+    .contact-info-link:hover { opacity: 0.7; }
+
+    /* ---- SNS Links ---- */
+    .sns-links {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 20px;
+    }
+    .sns-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      transition: all 0.3s var(--ease-bounce);
+      cursor: pointer;
+    }
+    .sns-link-ig  { background: rgba(255,107,122,0.1); color: var(--coral); }
+    .sns-link-fb  { background: rgba(78,205,196,0.1); color: var(--mint-dark); }
+    .sns-link-yelp{ background: rgba(255,209,102,0.15); color: #B8860B; }
+    .sns-link-ta  { background: rgba(6,214,160,0.1); color: #05A87A; }
+    .sns-link:hover { transform: translateY(-3px) scale(1.03); filter: brightness(0.9); }
+
+    /* ---- Contact Form ---- */
+    .contact-form-wrap {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: 40px;
+    }
+    .form-title {
+      font-family: "Zen Maru Gothic", sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+      font-feature-settings: "palt" 1;
+    }
+    .form-subtitle { font-size: 14px; color: var(--text-sub); margin-bottom: 32px; }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .form-label span { color: var(--coral); }
+
+    .radio-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 4px;
+    }
+    .radio-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border-radius: var(--radius-pill);
+      border: 2px solid var(--border);
+      background: var(--surface);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.25s var(--ease-bounce);
+      font-family: var(--font-body);
+      color: var(--text-sub);
+    }
+    .radio-btn:hover {
+      border-color: var(--coral);
+      color: var(--coral);
+      transform: translateY(-2px);
+    }
+    .radio-btn input { display: none; }
+    .radio-btn.selected {
+      background: var(--coral);
+      border-color: var(--coral);
+      color: #fff;
+    }
+
+    .form-submit {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 32px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .form-note { font-size: 12px; color: var(--text-muted); }
+
+    .btn-submit {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, var(--coral), #FF8E6E);
+      color: #fff;
+      padding: 16px 40px;
+      border-radius: var(--radius-pill);
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      border: none;
+      cursor: pointer;
+      font-family: var(--font-body);
+      box-shadow: 0 6px 20px rgba(255,107,122,0.4);
+      transition: all 0.35s var(--ease-bounce);
+    }
+    .btn-submit:hover {
+      transform: translateY(-4px) scale(1.04);
+      box-shadow: 0 12px 32px rgba(255,107,122,0.5);
+    }
+
+    /* Success message */
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 48px 24px;
+    }
+    .form-success-icon { font-size: 64px; margin-bottom: 16px; }
+    .form-success-title {
+      font-family: "Zen Maru Gothic", sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .form-success-desc { font-size: 14px; color: var(--text-sub); }
+
+    /* ---- FAQ ---- */
+    .faq-section { background: var(--surface-alt); }
+    .faq-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 48px;
+    }
+    .faq-item {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: all 0.3s var(--ease-bounce);
+    }
+    .faq-item:hover { border-color: var(--coral); }
+    .faq-q {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 20px 24px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--text);
+      user-select: none;
+    }
+    .faq-q::after {
+      content: '＋';
+      font-size: 20px;
+      color: var(--coral);
+      flex-shrink: 0;
+      transition: transform 0.3s var(--ease-smooth);
+    }
+    .faq-item.open .faq-q::after { transform: rotate(45deg); }
+    .faq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s var(--ease-smooth), padding 0.3s;
+      font-size: 14px;
+      color: var(--text-sub);
+      line-height: 1.8;
+      padding: 0 24px;
+    }
+    .faq-item.open .faq-a {
+      max-height: 300px;
+      padding: 0 24px 20px;
+    }
+
+    /* ---- Catering Section ---- */
+    .catering-section { background: var(--bg); }
+    .catering-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 48px;
+    }
+    .catering-card {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: 28px;
+      text-align: center;
+      transition: all 0.4s var(--ease-bounce);
+    }
+    .catering-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--coral);
+      box-shadow: 0 16px 40px rgba(255,107,122,0.15);
+    }
+    .catering-card-icon { font-size: 48px; margin-bottom: 16px; }
+    .catering-card-title {
+      font-family: "Zen Maru Gothic", sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      font-feature-settings: "palt" 1;
+    }
+    .catering-card-desc { font-size: 13px; color: var(--text-sub); line-height: 1.8; }
+    .catering-card-price {
+      font-family: var(--font-display);
+      font-size: 22px;
+      color: var(--coral);
+      margin-top: 16px;
+    }
+    .catering-card-price span { font-size: 13px; }
+
+    @media (max-width: 1024px) {
+      .contact-layout { grid-template-columns: 1fr; }
+      .faq-grid { grid-template-columns: 1fr; }
+      .catering-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      .form-row { grid-template-columns: 1fr; }
+      .sns-links { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="particles" id="particles"></div>
+  <header id="header"></header>
+
+  <!-- Hero -->
+  <div class="page-hero">
+    <div class="contact-hero-bg page-hero-bg"></div>
+    <div class="page-hero-floats">
+      <span class="page-hero-float" style="top:15%;left:5%;animation-duration:6s">💌</span>
+      <span class="page-hero-float" style="top:20%;right:6%;animation-duration:8s;animation-delay:-2s">🌺</span>
+      <span class="page-hero-float" style="bottom:25%;left:10%;animation-duration:7s;animation-delay:-4s">🍙</span>
+      <span class="page-hero-float" style="bottom:20%;right:5%;animation-duration:5s;animation-delay:-1s">✉️</span>
+    </div>
+    <div class="page-hero-content reveal">
+      <div class="page-hero-tag">💌 CONTACT</div>
+      <h1 class="page-hero-title">Say Aloha!</h1>
+      <p class="page-hero-title-jp">お気軽にご連絡ください</p>
+      <p class="page-hero-desc">ご質問・ケータリングのご相談・採用情報など、<br>どんなことでもお気軽にどうぞ。</p>
+    </div>
+  </div>
+
+  <!-- Ticker -->
+  <div class="news-ticker">
+    <div class="news-ticker-inner">
+      <div class="ticker-label">💌 CONTACT</div>
+      <span class="ticker-item">お問い合わせは通常2営業日以内にご返信します</span>
+      <span class="ticker-item">ケータリングは最低20名様から受付中</span>
+      <span class="ticker-item">採用情報はお気軽にご相談ください</span>
+      <div class="ticker-label">💌 CONTACT</div>
+      <span class="ticker-item">お問い合わせは通常2営業日以内にご返信します</span>
+      <span class="ticker-item">ケータリングは最低20名様から受付中</span>
+      <span class="ticker-item">採用情報はお気軽にご相談ください</span>
+    </div>
+  </div>
+
+  <!-- Contact Main -->
+  <section class="section" style="background:var(--bg)">
+    <div class="section-inner">
+      <div class="contact-layout">
+
+        <!-- Left: Info -->
+        <div class="contact-info">
+          <div class="section-tag reveal">📞 REACH US</div>
+          <h2 class="section-title reveal reveal-delay-1">連絡先</h2>
+          <p class="section-title-en reveal reveal-delay-2" style="margin-bottom:24px">Get in Touch</p>
+
+          <div class="contact-info-card reveal reveal-delay-2">
+            <div class="contact-info-icon">📧</div>
+            <div class="contact-info-title">メール</div>
+            <div class="contact-info-value">
+              <a href="mailto:info@iyasumehawaii.com" class="contact-info-link">info@iyasumehawaii.com</a><br>
+              通常2営業日以内にご返信します。
+            </div>
+          </div>
+
+          <div class="contact-info-card reveal reveal-delay-3">
+            <div class="contact-info-icon">📞</div>
+            <div class="contact-info-title">お電話</div>
+            <div class="contact-info-value">
+              <a href="tel:+18089223555" class="contact-info-link">(808) 922-3555</a><br>
+              営業時間内にお電話ください（ワイキキ本店）
+            </div>
+          </div>
+
+          <div class="contact-info-card reveal reveal-delay-4">
+            <div class="contact-info-icon">📍</div>
+            <div class="contact-info-title">本社・お問い合わせ先</div>
+            <div class="contact-info-value">
+              2330 Kalakaua Ave<br>
+              Honolulu, HI 96815<br>
+              United States
+            </div>
+          </div>
+
+          <div class="reveal reveal-delay-4">
+            <div class="section-tag" style="margin-bottom:12px">📱 SNS</div>
+            <div class="sns-links">
+              <a href="#" class="sns-link sns-link-ig">📸 Instagram</a>
+              <a href="#" class="sns-link sns-link-fb">📘 Facebook</a>
+              <a href="#" class="sns-link sns-link-yelp">⭐ Yelp</a>
+              <a href="#" class="sns-link sns-link-ta">✈️ TripAdvisor</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Form -->
+        <div class="contact-form-wrap reveal reveal-delay-1">
+          <div id="form-body">
+            <div class="form-title">✉️ メッセージを送る</div>
+            <p class="form-subtitle">すべての項目をご記入の上、送信ボタンを押してください。</p>
+
+            <form id="contact-form" novalidate>
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label">お名前 <span>*</span></label>
+                  <input type="text" class="input" placeholder="山田 太郎" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">メールアドレス <span>*</span></label>
+                  <input type="email" class="input" placeholder="email@example.com" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">お問い合わせの種類 <span>*</span></label>
+                <div class="radio-group">
+                  <label class="radio-btn selected">
+                    <input type="radio" name="type" value="general" checked>
+                    💬 一般的なご質問
+                  </label>
+                  <label class="radio-btn">
+                    <input type="radio" name="type" value="catering">
+                    🍱 ケータリング
+                  </label>
+                  <label class="radio-btn">
+                    <input type="radio" name="type" value="careers">
+                    💼 採用情報
+                  </label>
+                  <label class="radio-btn">
+                    <input type="radio" name="type" value="media">
+                    📸 メディア取材
+                  </label>
+                  <label class="radio-btn">
+                    <input type="radio" name="type" value="other">
+                    📝 その他
+                  </label>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">件名 <span>*</span></label>
+                <input type="text" class="input" placeholder="お問い合わせの件名を入力してください" required>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">メッセージ <span>*</span></label>
+                <textarea class="textarea" placeholder="お問い合わせ内容を詳しくご記入ください..." required></textarea>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">希望の店舗（任意）</label>
+                <select class="input select">
+                  <option value="">選択してください</option>
+                  <option>ワイキキ本店</option>
+                  <option>アラモアナ店</option>
+                  <option>ホノルル空港店</option>
+                  <option>カカアコ店</option>
+                  <option>カイルア店</option>
+                  <option>カポレイ店</option>
+                  <option>マウイ店</option>
+                  <option>全店舗・本社</option>
+                </select>
+              </div>
+
+              <div class="form-submit">
+                <p class="form-note">送信後、自動返信メールをお送りします。<br>2営業日以内にご連絡いたします。</p>
+                <button type="submit" class="btn-submit">
+                  送信する 🍙
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <div class="form-success" id="form-success">
+            <div class="form-success-icon">🎉</div>
+            <div class="form-success-title">送信しました！ありがとうございます</div>
+            <p class="form-success-desc">2営業日以内にご連絡いたします。<br>それまでの間、SNSでいやす夢をフォローしてね！</p>
+            <div style="margin-top:24px">
+              <a href="index.html" class="btn-primary">🏠 トップページへ戻る</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section faq-section">
+    <div class="section-inner">
+      <div class="text-center">
+        <div class="section-tag reveal">❓ FAQ</div>
+        <h2 class="section-title reveal reveal-delay-1">よくあるご質問</h2>
+        <p class="section-title-en reveal reveal-delay-2">Frequently Asked Questions</p>
+      </div>
+      <div class="faq-grid">
+        <div class="faq-item reveal">
+          <div class="faq-q">グルテンフリーのメニューはありますか？</div>
+          <div class="faq-a">はい、ございます。塩むすびや梅干しむすびなど、グルテンフリー対応のメニューをご用意しています。スタッフにお申し付けいただければ、対応メニューをご案内します。</div>
+        </div>
+        <div class="faq-item reveal reveal-delay-1">
+          <div class="faq-q">DoorDashで注文できますか？</div>
+          <div class="faq-a">はい！ホノルル全域のご住所へデリバリーが可能です。DoorDashアプリで「IYASUME」を検索してご注文ください。最短30分でお届けします。</div>
+        </div>
+        <div class="faq-item reveal reveal-delay-2">
+          <div class="faq-q">ケータリングの最低人数は？</div>
+          <div class="faq-a">ケータリングは最低20名様から承っています。ご注文内容や日程によって異なりますので、まずはお気軽にお問い合わせください。</div>
+        </div>
+        <div class="faq-item reveal reveal-delay-3">
+          <div class="faq-q">アレルギー対応はしてもらえますか？</div>
+          <div class="faq-a">アレルギーをお持ちのお客様には、成分表をお渡しすることができます。また、スタッフにお申し付けいただければ、アレルゲンに配慮したメニューのご提案も可能です。</div>
+        </div>
+        <div class="faq-item reveal reveal-delay-4">
+          <div class="faq-q">採用応募はどうすればいいですか？</div>
+          <div class="faq-a">このページのお問い合わせフォームから「採用情報」を選択してご連絡ください。または各店舗のスタッフに直接お声がけいただいても構いません。</div>
+        </div>
+        <div class="faq-item reveal reveal-delay-5">
+          <div class="faq-q">メディア取材・コラボの問い合わせ先は？</div>
+          <div class="faq-a">お問い合わせフォームから「メディア取材」をお選びいただき、ご連絡ください。プレスリリースやメディアキットのご提供も可能です。</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Catering -->
+  <section class="section catering-section">
+    <div class="section-inner">
+      <div class="text-center">
+        <div class="section-tag reveal">🍱 CATERING</div>
+        <h2 class="section-title reveal reveal-delay-1">ケータリングプラン</h2>
+        <p class="section-title-en reveal reveal-delay-2">Perfect for Any Event</p>
+      </div>
+      <div class="catering-grid">
+        <div class="catering-card reveal reveal-delay-1">
+          <div class="catering-card-icon">💼</div>
+          <div class="catering-card-title">コーポレートプラン</div>
+          <p class="catering-card-desc">企業のランチミーティングやオフィスパーティーに。20〜100名様対応。</p>
+          <div class="catering-card-price">$8〜<span>/人</span></div>
+        </div>
+        <div class="catering-card reveal reveal-delay-2">
+          <div class="catering-card-icon">💒</div>
+          <div class="catering-card-title">ウェディングプラン</div>
+          <p class="catering-card-desc">ハワイウェディングに和の彩りを。100名様以上の大型イベント対応。</p>
+          <div class="catering-card-price">$12〜<span>/人</span></div>
+        </div>
+        <div class="catering-card reveal reveal-delay-3">
+          <div class="catering-card-icon">🎉</div>
+          <div class="catering-card-title">パーティープラン</div>
+          <p class="catering-card-desc">誕生日・記念日・ホームパーティーなど20〜50名様の小規模イベントに。</p>
+          <div class="catering-card-price">$10〜<span>/人</span></div>
+        </div>
+      </div>
+      <div class="text-center reveal" style="margin-top:40px">
+        <a href="#contact-form" class="btn-primary">📩 ケータリングを相談する</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="highlight-banner">
+    <div class="section-inner">
+      <div class="reveal">
+        <h2 class="highlight-title">🌺 Mahalo!</h2>
+        <p class="highlight-desc">ご連絡ありがとうございます。<br>アロハの心でお返事お待ちしています。</p>
+        <a href="index.html" class="btn-white">🏠 トップページへ</a>
+      </div>
+    </div>
+  </div>
+
+  <footer id="footer"></footer>
+  <button id="back-top" aria-label="トップへ戻る">↑</button>
+
+  <script src="components.js"></script>
+  <script>
+    // Radio button UI
+    document.querySelectorAll('.radio-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.radio-btn').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        btn.querySelector('input').checked = true;
+      });
+    });
+
+    // Form submit
+    document.getElementById('contact-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      document.getElementById('form-body').style.display = 'none';
+      document.getElementById('form-success').style.display = 'block';
+    });
+
+    // FAQ accordion
+    document.querySelectorAll('.faq-q').forEach(q => {
+      q.addEventListener('click', () => {
+        const item = q.closest('.faq-item');
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+      });
+    });
+  </script>
+</body>
+</html>
