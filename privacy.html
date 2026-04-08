@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>プライバシーポリシー | MUSUBI CAFE IYASUME</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Pacifico&family=Zen+Maru+Gothic:wght@400;500;700&family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .privacy-hero-bg {
+      position: absolute; inset: 0;
+      background: linear-gradient(160deg, #F5F0FF 0%, #FFF0EC 100%);
+    }
+    .privacy-hero-bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 70% 30%, rgba(200,184,255,0.2) 0%, transparent 55%),
+                  radial-gradient(ellipse at 15% 70%, rgba(255,107,122,0.1) 0%, transparent 50%);
+    }
+
+    /* ---- Policy Layout ---- */
+    .policy-layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 48px;
+      align-items: flex-start;
+    }
+    .policy-toc {
+      position: sticky;
+      top: 96px;
+    }
+    .policy-toc-title {
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      color: var(--text-sub);
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .policy-toc-list { list-style: none; }
+    .policy-toc-item a {
+      display: block;
+      padding: 8px 12px;
+      border-radius: 10px;
+      font-size: 13px;
+      color: var(--text-sub);
+      transition: all 0.2s;
+      border-left: 2px solid transparent;
+    }
+    .policy-toc-item a:hover,
+    .policy-toc-item a.active {
+      background: var(--surface-alt);
+      color: var(--coral);
+      border-left-color: var(--coral);
+    }
+
+    /* ---- Policy Content ---- */
+    .policy-meta {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 40px;
+      padding: 16px 20px;
+      background: var(--surface-alt);
+      border-radius: 12px;
+      font-size: 13px;
+      color: var(--text-sub);
+    }
+    .policy-meta-item { display: flex; align-items: center; gap: 6px; }
+
+    .policy-section { margin-bottom: 48px; scroll-margin-top: 96px; }
+    .policy-section-num {
+      font-family: var(--font-display);
+      font-size: 12px;
+      color: var(--coral);
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+    }
+    .policy-section-title {
+      font-family: "Zen Maru Gothic", sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--border);
+    }
+    .policy-text {
+      font-size: 15px;
+      color: var(--text-sub);
+      line-height: 2;
+    }
+    .policy-text p { margin-bottom: 12px; }
+    .policy-text ul {
+      list-style: none;
+      margin: 12px 0;
+    }
+    .policy-text ul li {
+      padding: 6px 0 6px 20px;
+      position: relative;
+      font-size: 14px;
+      border-bottom: 1px dashed var(--border);
+    }
+    .policy-text ul li:last-child { border-bottom: none; }
+    .policy-text ul li::before {
+      content: '▶';
+      position: absolute;
+      left: 0;
+      color: var(--coral);
+      font-size: 10px;
+      top: 10px;
+    }
+    .policy-highlight {
+      background: var(--surface-alt);
+      border-left: 4px solid var(--coral);
+      border-radius: 0 12px 12px 0;
+      padding: 16px 20px;
+      margin: 16px 0;
+      font-size: 14px;
+      color: var(--text);
+    }
+
+    @media (max-width: 1024px) {
+      .policy-layout { grid-template-columns: 1fr; }
+      .policy-toc { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="particles" id="particles"></div>
+  <header id="header"></header>
+
+  <!-- Hero -->
+  <div class="page-hero">
+    <div class="privacy-hero-bg page-hero-bg"></div>
+    <div class="page-hero-floats">
+      <span class="page-hero-float" style="top:14%;left:5%;animation-duration:7s">🔒</span>
+      <span class="page-hero-float" style="top:28%;right:6%;animation-duration:6s;animation-delay:-2s">🛡️</span>
+      <span class="page-hero-float" style="bottom:22%;left:10%;animation-duration:8s;animation-delay:-5s">🍙</span>
+      <span class="page-hero-float" style="bottom:28%;right:8%;animation-duration:5s;animation-delay:-3s">🌺</span>
+    </div>
+    <div class="page-hero-content reveal">
+      <div class="page-hero-tag">🔒 PRIVACY POLICY</div>
+      <h1 class="page-hero-title">プライバシーポリシー</h1>
+      <p class="page-hero-title-jp">Privacy Policy</p>
+      <p class="page-hero-desc">MUSUBI CAFE IYASUMEは、お客様の個人情報を<br>適切に保護・管理することをお約束します。</p>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="policy-layout">
+
+        <!-- TOC -->
+        <aside class="policy-toc reveal">
+          <div class="policy-toc-title">目次</div>
+          <ul class="policy-toc-list">
+            <li class="policy-toc-item"><a href="#p1">1. 基本方針</a></li>
+            <li class="policy-toc-item"><a href="#p2">2. 収集する情報</a></li>
+            <li class="policy-toc-item"><a href="#p3">3. 情報の利用目的</a></li>
+            <li class="policy-toc-item"><a href="#p4">4. 第三者への提供</a></li>
+            <li class="policy-toc-item"><a href="#p5">5. Cookie・アクセス解析</a></li>
+            <li class="policy-toc-item"><a href="#p6">6. 安全管理措置</a></li>
+            <li class="policy-toc-item"><a href="#p7">7. 開示・訂正・削除</a></li>
+            <li class="policy-toc-item"><a href="#p8">8. お問い合わせ</a></li>
+          </ul>
+        </aside>
+
+        <!-- Policy Body -->
+        <div class="policy-body reveal">
+          <div class="policy-meta">
+            <div class="policy-meta-item">📅 制定日：2024年1月1日</div>
+            <div class="policy-meta-item">🔄 最終更新：2024年10月1日</div>
+          </div>
+
+          <div class="policy-section" id="p1">
+            <div class="policy-section-num">ARTICLE 01</div>
+            <div class="policy-section-title">基本方針</div>
+            <div class="policy-text">
+              <p>MUSUBI CAFE IYASUME（以下「当店」）は、お客様の個人情報の保護を最重要課題のひとつとして捉え、以下のプライバシーポリシーに従って個人情報を適切に取り扱います。</p>
+              <p>当店は、ハワイ州の個人情報保護に関する法令、ならびに日本の個人情報保護法その他の関連法令を遵守します。</p>
+              <div class="policy-highlight">
+                🌺 当店はお客様から信頼される店舗であり続けるために、個人情報の適切な管理を全スタッフで徹底しています。
+              </div>
+            </div>
+          </div>
+
+          <div class="policy-section" id="p2">
+            <div class="policy-section-num">ARTICLE 02</div>
+            <div class="policy-section-title">収集する個人情報</div>
+            <div class="policy-text">
+              <p>当店は以下の情報を収集する場合があります。</p>
+              <ul>
+                <li>氏名・お名前（ご注文・お問い合わせ時）</li>
+                <li>メールアドレス・電話番号（連絡先情報）</li>
+                <li>住所（配送・ケータリングサービス利用時）</li>
+                <li>お支払い情報（クレジットカード情報は決済代行会社が処理し当店は保持しません）</li>
+                <li>ご注文履歴・購入履歴</li>
+                <li>ウェブサイトへのアクセスログ（IPアドレス、ブラウザ情報など）</li>
+                <li>SNSアカウント情報（SNS連携でのログイン時）</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="policy-section" id="p3">
+            <div class="policy-section-num">ARTICLE 03</div>
+            <div class="policy-section-title">個人情報の利用目的</div>
+            <div class="policy-text">
+              <p>収集した個人情報は以下の目的のために利用します。</p>
+              <ul>
+                <li>ご注文・予約・ケータリングの受付・処理・確認</li>
+                <li>商品・サービスの配達・提供</li>
+                <li>お問い合わせへの対応</li>
+                <li>メールマガジン・お知らせの配信（同意いただいた場合のみ）</li>
+                <li>サービスの改善・新サービスの開発</li>
+                <li>法的義務の遵守</li>
+              </ul>
+              <p>上記の目的以外に個人情報を利用することはありません。</p>
+            </div>
+          </div>
+
+          <div class="policy-section" id="p4">
+            <div class="policy-section-num">ARTICLE 04</div>
+            <div class="policy-section-title">第三者への個人情報の提供</div>
+            <div class="policy-text">
+              <p>当店は以下の場合を除き、お客様の個人情報を第三者に提供しません。</p>
+              <ul>
+                <li>お客様の事前の同意を得た場合</li>
+                <li>法令に基づき開示・提供が必要な場合</li>
+                <li>人の生命・身体・財産の保護のために必要な場合</li>
+                <li>配送業者・決済代行会社など、サービス提供に必要な業務委託先への提供（適切な管理契約の下で行われます）</li>
+              </ul>
+              <div class="policy-highlight">
+                🔒 お客様の個人情報を当店の利益のために販売・貸与することは一切ありません。
+              </div>
+            </div>
+          </div>
+
+          <div class="policy-section" id="p5">
+            <div class="policy-section-num">ARTICLE 05</div>
+            <div class="policy-section-title">Cookie・アクセス解析について</div>
+            <div class="policy-text">
+              <p>当ウェブサイトでは、サービス向上のためにCookieおよびGoogle Analyticsを使用しています。これらの情報は個人を特定するものではなく、集計データとして利用されます。</p>
+              <ul>
+                <li>Cookieの使用：ショッピングカートの維持、ログイン状態の保持など</li>
+                <li>Google Analytics：サイト訪問数・滞在時間などの統計データ収集</li>
+              </ul>
+              <p>ブラウザの設定からCookieを無効にすることができますが、一部のサービス機能が正常に動作しない場合があります。</p>
+            </div>
+          </div>
+
+          <div class="policy-section" id="p6">
+            <div class="policy-section-num">ARTICLE 06</div>
+            <div class="policy-section-title">個人情報の安全管理措置</div>
+            <div class="policy-text">
+              <p>当店は個人情報の漏洩・滅失・毀損を防止するために以下の措置を講じています。</p>
+              <ul>
+                <li>SSL/TLS暗号化通信によるデータ転送の保護</li>
+                <li>アクセス権限の厳格な管理と制限</li>
+                <li>定期的なセキュリティ研修の実施</li>
+                <li>個人情報取扱規程の整備と遵守の徹底</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="policy-section" id="p7">
+            <div class="policy-section-num">ARTICLE 07</div>
+            <div class="policy-section-title">個人情報の開示・訂正・削除</div>
+            <div class="policy-text">
+              <p>お客様は、当店が保有するご自身の個人情報について、以下の権利を有します。</p>
+              <ul>
+                <li>保有している個人情報の開示を請求する権利</li>
+                <li>不正確な個人情報の訂正を請求する権利</li>
+                <li>個人情報の削除を請求する権利</li>
+                <li>個人情報の利用停止を請求する権利</li>
+              </ul>
+              <p>これらの請求は<a href="contact.html" style="color:var(--coral);font-weight:700">お問い合わせフォーム</a>よりお申し出ください。ご本人確認の上、合理的な期間内に対応いたします。</p>
+            </div>
+          </div>
+
+          <div class="policy-section" id="p8">
+            <div class="policy-section-num">ARTICLE 08</div>
+            <div class="policy-section-title">プライバシーポリシーに関するお問い合わせ</div>
+            <div class="policy-text">
+              <p>本プライバシーポリシーに関するご質問・ご要望は、以下の窓口までお問い合わせください。</p>
+              <div class="policy-highlight">
+                📧 MUSUBI CAFE IYASUME — プライバシー担当<br>
+                住所：123 Kalakaua Ave, Waikiki, Honolulu, HI 96815<br>
+                メール：<a href="contact.html" style="color:var(--coral);font-weight:700">お問い合わせフォームより</a>
+              </div>
+              <p>本プライバシーポリシーは、法令の改正やサービス内容の変更に伴い、予告なく改定される場合があります。重要な変更がある場合はウェブサイトにてお知らせします。</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer id="footer"></footer>
+  <button id="back-top" aria-label="トップへ戻る">↑</button>
+  <script src="components.js"></script>
+</body>
+</html>

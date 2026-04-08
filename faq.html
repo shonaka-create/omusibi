@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>よくある質問 | MUSUBI CAFE IYASUME</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Pacifico&family=Zen+Maru+Gothic:wght@400;500;700&family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .faq-hero-bg {
+      position: absolute; inset: 0;
+      background: linear-gradient(160deg, #F0F8FF 0%, #FFF0EC 100%);
+    }
+    .faq-hero-bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 75% 30%, rgba(78,205,196,0.14) 0%, transparent 55%),
+                  radial-gradient(ellipse at 15% 70%, rgba(255,107,122,0.12) 0%, transparent 50%);
+    }
+
+    /* ---- Category Tabs ---- */
+    .faq-categories {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 48px;
+    }
+    .faq-cat-btn {
+      padding: 10px 24px;
+      border-radius: var(--radius-pill);
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      border: 2px solid var(--border);
+      background: var(--surface);
+      color: var(--text-sub);
+      transition: all 0.3s var(--ease-bounce);
+      font-family: var(--font-body);
+    }
+    .faq-cat-btn.active,
+    .faq-cat-btn:hover {
+      background: var(--coral);
+      border-color: var(--coral);
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(255,107,122,0.3);
+    }
+
+    /* ---- FAQ Section ---- */
+    .faq-section {
+      margin-bottom: 56px;
+    }
+    .faq-section-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 2px solid var(--border);
+    }
+    .faq-section-icon { font-size: 32px; }
+    .faq-section-title {
+      font-family: "Zen Maru Gothic", sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    /* ---- Accordion ---- */
+    .faq-item {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 16px;
+      margin-bottom: 12px;
+      overflow: hidden;
+      transition: border-color 0.3s var(--ease-smooth),
+                  box-shadow 0.3s var(--ease-smooth);
+    }
+    .faq-item.open {
+      border-color: var(--coral);
+      box-shadow: 0 6px 24px rgba(255,107,122,0.12);
+    }
+    .faq-question {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 20px 24px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .faq-q-icon {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: var(--coral);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 900;
+      font-family: var(--font-display);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .faq-item.open .faq-q-icon { background: var(--coral-dark); }
+    .faq-q-text {
+      flex: 1;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.5;
+    }
+    .faq-toggle {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: var(--surface-alt);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      color: var(--text-sub);
+      flex-shrink: 0;
+      transition: transform 0.3s var(--ease-smooth), background 0.3s;
+    }
+    .faq-item.open .faq-toggle {
+      transform: rotate(45deg);
+      background: var(--coral-light);
+      color: var(--coral-dark);
+    }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s var(--ease-smooth);
+    }
+    .faq-item.open .faq-answer { max-height: 400px; }
+    .faq-answer-inner {
+      padding: 0 24px 24px 72px;
+      font-size: 15px;
+      color: var(--text-sub);
+      line-height: 1.9;
+    }
+    .faq-answer-inner a {
+      color: var(--coral);
+      font-weight: 700;
+      text-decoration: underline;
+    }
+    .faq-answer-inner a:hover { color: var(--coral-dark); }
+
+    /* ---- Contact CTA ---- */
+    .faq-contact-box {
+      background: linear-gradient(135deg, var(--surface-alt) 0%, #FFF5F5 100%);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: 48px;
+      text-align: center;
+      margin-top: 64px;
+    }
+    .faq-contact-icon { font-size: 56px; margin-bottom: 16px; }
+    .faq-contact-title {
+      font-family: "Zen Maru Gothic", sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+    .faq-contact-desc { font-size: 15px; color: var(--text-sub); line-height: 1.8; margin-bottom: 28px; }
+  </style>
+</head>
+<body>
+  <div class="particles" id="particles"></div>
+  <header id="header"></header>
+
+  <!-- Hero -->
+  <div class="page-hero">
+    <div class="faq-hero-bg page-hero-bg"></div>
+    <div class="page-hero-floats">
+      <span class="page-hero-float" style="top:14%;left:5%;animation-duration:7s">❓</span>
+      <span class="page-hero-float" style="top:28%;right:6%;animation-duration:6s;animation-delay:-2s">💬</span>
+      <span class="page-hero-float" style="bottom:22%;left:10%;animation-duration:8s;animation-delay:-5s">🍙</span>
+      <span class="page-hero-float" style="bottom:28%;right:8%;animation-duration:5s;animation-delay:-3s">🌺</span>
+    </div>
+    <div class="page-hero-content reveal">
+      <div class="page-hero-tag">❓ FAQ</div>
+      <h1 class="page-hero-title">よくある質問</h1>
+      <p class="page-hero-title-jp">Frequently Asked Questions</p>
+      <p class="page-hero-desc">お客様からよくいただくご質問をまとめました。<br>解決しない場合はお気軽にお問い合わせください。</p>
+    </div>
+  </div>
+
+  <!-- FAQ Content -->
+  <section class="section">
+    <div class="section-inner" style="max-width:860px">
+
+      <!-- Menu FAQs -->
+      <div class="faq-section reveal">
+        <div class="faq-section-header">
+          <div class="faq-section-icon">🍙</div>
+          <div class="faq-section-title">メニューについて</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <div class="faq-q-icon">Q</div>
+            <div class="faq-q-text">おにぎりの具材はカスタマイズできますか？</div>
+            <div class="faq-toggle">+</div>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              はい、一部のメニューは具材・海苔の有無・ご飯の量などをカスタマイズいただけます。店頭でスタッフにお気軽にお申し付けください。なお、具材の変更は在庫状況により承れない場合もございます。
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <div class="faq-q-icon">Q</div>
+            <div class="faq-q-text">季節限定メニューはどのくらいの期間提供されますか？</div>
+            <div class="faq-toggle">+</div>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              季節限定メニューは概ね2〜3ヶ月ごとに入れ替わります。現在の季節限定メニューの情報はInstagramや店頭でお知らせしています。売り切れ次第終了となりますのでお早めにどうぞ。
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <div class="faq-q-icon">Q</div>
+            <div class="faq-q-text">ベジタリアン・ビーガン向けのメニューはありますか？</div>
+            <div class="faq-toggle">+</div>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              はい、ベジタリアン対応のメニューをご用意しています。メニューに「🌿 ベジ」のマークが付いているものが該当します。ビーガン対応については店舗スタッフにご確認ください。
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <div class="faq-q-icon">Q</div>
+            <div class="faq-q-text">おにぎりのカロリー・栄養成分を教えてください。</div>
+            <div class="faq-toggle">+</div>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              主要メニューのカロリー・栄養成分表は店頭のメニューボードにてご確認いただけます。詳細な情報が必要な場合は店舗スタッフまたは<a href="contact.html">お問い合わせフォーム</a>よりご連絡ください。
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Allergy FAQs -->
+      <div class="faq-section reveal">
+        <div class="faq-section-header">
+          <div class="faq-section-icon">🌿</div>
+          <div class="faq-section-title">アレルギー・食材について</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <div class="faq-q-icon">Q</div>
+            <div class="faq-q-text">アレルギー対応はしてもらえますか？</div>
+            <div class="faq-toggle">+</div>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              はい、対応可能なアレルギーがございます。ご注文の際に店舗スタッフにアレルギーについてお申し出ください。ただし、当店のキッチンでは卵・小麦・大豆・魚介類等のアレルゲンを含む食材を使用しており、完全に交差汚染を防ぐことは難しい場合があります。重篤なアレルギーをお持ちの方は<a href="allergy.html">アレルギー情報ページ</a>をご確認の上、ご相談ください。
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <div class="faq-q-icon">Q</div>
+            <div class="faq-q-text">グルテンフリーのメニューはありますか？</div>
+            <div class="faq-toggle">+</div>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              白米を使ったおにぎりはグルテンを含まない食材が多いですが、醤油・タレ類にはグルテンが含まれる場合があります。グルテンフリー対応が必要な方は店舗スタッフにご相談ください。「GF」マークのついたメニューも一部ございます。
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stores FAQs -->
+      <div class="faq-section reveal">
+        <div class="faq-section-header">
+          <div class="faq-section-icon">📍</div>
+          <div class="faq-section-title">店舗・営業時間について</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <div class="faq-q-icon">Q</div>
+            <div class="faq-q-text">営業時間を教えてください。</div>
+            <div class="faq-toggle">+</div>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              店舗によって営業時間が異なります。各店舗の営業時間は<a href="locations.html">店舗一覧ページ</a>をご確認ください。祝日・特別営業日については各店舗のSNSでもお知らせします。
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <div class="faq-q-icon">Q</div>
+            <div class="faq-q-text">予約は必要ですか？</div>
+            <div class="faq-toggle">+</div>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              通常のご来店は予約不要です。ただし、ケータリングやグループでのご利用（10名以上）の場合は事前にご予約をお願いしています。<a href="contact.html">お問い合わせフォーム</a>からご連絡ください。
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <div class="faq-q-icon">Q</div>
+            <div class="faq-q-text">駐車場はありますか？</div>
+            <div class="faq-toggle">+</div>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              ワイキキ本店・アラモアナ店には専用駐車場はございません。近隣の公共駐車場をご利用ください。カイルア店・カポレイ店・マウイ店には無料駐車場が隣接しています。詳しくは<a href="locations.html">店舗情報</a>をご確認ください。
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Order / Delivery FAQs -->
+      <div class="faq-section reveal">
+        <div class="faq-section-header">
+          <div class="faq-section-icon">🛵</div>
+          <div class="faq-section-title">注文・デリバリーについて</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <div class="faq-q-icon">Q</div>
+            <div class="faq-q-text">デリバリーはできますか？</div>
+            <div class="faq-toggle">+</div>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              はい、DoorDash・Uber Eatsを通じてホノルル市内へのデリバリーを承っています。一部の店舗は対象外となる場合がありますので、アプリでご確認ください。
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <div class="faq-q-icon">Q</div>
+            <div class="faq-q-text">オンラインショップで購入できますか？</div>
+            <div class="faq-toggle">+</div>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              はい、冷凍おにぎりや調味料・ギフトセットをオンラインショップにてご購入いただけます。ハワイ全域への配送に加え、米国本土への発送も対応しています。詳しくはオンラインショップをご覧ください。
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <div class="faq-q-icon">Q</div>
+            <div class="faq-q-text">支払い方法を教えてください。</div>
+            <div class="faq-toggle">+</div>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              現金・クレジットカード（Visa / Mastercard / American Express）・Apple Pay・Google Pay・各種電子マネーがご利用いただけます。なお、空港店では現金のみとなっております。
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact box -->
+      <div class="faq-contact-box reveal">
+        <div class="faq-contact-icon">💬</div>
+        <div class="faq-contact-title">解決しない場合はお気軽に</div>
+        <p class="faq-contact-desc">
+          上記で解決しなかった場合や、その他のご質問・ご要望は<br>
+          お問い合わせフォームよりお気軽にご連絡ください。<br>
+          通常2営業日以内にご返信いたします。
+        </p>
+        <a href="contact.html" class="btn-primary">📧 お問い合わせフォームへ</a>
+      </div>
+
+    </div>
+  </section>
+
+  <footer id="footer"></footer>
+  <button id="back-top" aria-label="トップへ戻る">↑</button>
+  <script src="components.js"></script>
+  <script>
+    function toggleFaq(questionEl) {
+      const item = questionEl.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      // Close all
+      document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+      // Open clicked if was not open
+      if (!isOpen) item.classList.add('open');
+    }
+  </script>
+</body>
+</html>

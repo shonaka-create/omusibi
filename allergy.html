@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>アレルギー情報 | MUSUBI CAFE IYASUME</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Pacifico&family=Zen+Maru+Gothic:wght@400;500;700&family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .allergy-hero-bg {
+      position: absolute; inset: 0;
+      background: linear-gradient(160deg, #F0FFF9 0%, #FFF8EC 100%);
+    }
+    .allergy-hero-bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 65% 35%, rgba(6,214,160,0.14) 0%, transparent 55%),
+                  radial-gradient(ellipse at 15% 70%, rgba(255,209,102,0.12) 0%, transparent 50%);
+    }
+
+    /* ---- Alert Banner ---- */
+    .allergy-alert {
+      background: linear-gradient(135deg, #FFF3CD, #FFECB5);
+      border: 2px solid #FFD166;
+      border-radius: 16px;
+      padding: 24px 28px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      margin-bottom: 48px;
+    }
+    .allergy-alert-icon { font-size: 32px; flex-shrink: 0; }
+    .allergy-alert-text { font-size: 14px; color: var(--text); line-height: 1.8; }
+    .allergy-alert-text strong { color: #B8860B; }
+
+    /* ---- Legend ---- */
+    .legend-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: var(--radius-pill);
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .legend-contains { background: #FFEAEA; color: #C0392B; border: 1.5px solid #FFBBBB; }
+    .legend-may      { background: #FFF9E6; color: #B8860B; border: 1.5px solid #FFD166; }
+    .legend-free     { background: #E8FFF5; color: #05A87A; border: 1.5px solid #A8F0D8; }
+
+    /* ---- Allergen Tags ---- */
+    .allergen-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 40px;
+    }
+    .allergen-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 18px;
+      border-radius: var(--radius-pill);
+      font-size: 13px;
+      font-weight: 700;
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      color: var(--text);
+      transition: all 0.25s var(--ease-bounce);
+    }
+    .allergen-tag.selected {
+      background: var(--coral);
+      border-color: var(--coral);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(255,107,122,0.3);
+    }
+
+    /* ---- Table ---- */
+    .allergy-table-wrap {
+      overflow-x: auto;
+      border-radius: var(--radius-card);
+      border: 1.5px solid var(--border);
+      margin-bottom: 48px;
+    }
+    .allergy-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 700px;
+    }
+    .allergy-table th {
+      background: var(--coral);
+      color: #fff;
+      padding: 14px 12px;
+      font-size: 12px;
+      font-weight: 800;
+      text-align: center;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+    .allergy-table th:first-child {
+      text-align: left;
+      padding-left: 20px;
+      min-width: 160px;
+    }
+    .allergy-table td {
+      padding: 14px 12px;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+    }
+    .allergy-table td:first-child {
+      text-align: left;
+      padding-left: 20px;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .allergy-table tr:last-child td { border-bottom: none; }
+    .allergy-table tr:nth-child(even) td { background: var(--bg); }
+    .allergy-table tr:hover td { background: #FFF5F5; }
+    .cell-yes  { color: #C0392B; font-size: 18px; }
+    .cell-may  { color: #B8860B; font-size: 16px; }
+    .cell-no   { color: var(--border); font-size: 16px; }
+
+    /* ---- Category Sections ---- */
+    .allergy-cat-title {
+      font-family: "Zen Maru Gothic", sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+      padding: 12px 20px;
+      background: var(--surface-alt);
+    }
+
+    /* ---- Info Cards ---- */
+    .info-card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+      margin-top: 48px;
+    }
+    .info-card {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 20px;
+      padding: 28px 24px;
+      transition: all 0.3s var(--ease-bounce);
+    }
+    .info-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(78,205,196,0.14);
+      border-color: var(--mint);
+    }
+    .info-card-icon { font-size: 40px; margin-bottom: 14px; }
+    .info-card-title {
+      font-family: "Zen Maru Gothic", sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .info-card-desc { font-size: 13px; color: var(--text-sub); line-height: 1.8; }
+  </style>
+</head>
+<body>
+  <div class="particles" id="particles"></div>
+  <header id="header"></header>
+
+  <!-- Hero -->
+  <div class="page-hero">
+    <div class="allergy-hero-bg page-hero-bg"></div>
+    <div class="page-hero-floats">
+      <span class="page-hero-float" style="top:14%;left:5%;animation-duration:7s">🌿</span>
+      <span class="page-hero-float" style="top:28%;right:6%;animation-duration:6s;animation-delay:-2s">✅</span>
+      <span class="page-hero-float" style="bottom:22%;left:10%;animation-duration:8s;animation-delay:-5s">🍙</span>
+      <span class="page-hero-float" style="bottom:28%;right:8%;animation-duration:5s;animation-delay:-3s">🌸</span>
+    </div>
+    <div class="page-hero-content reveal">
+      <div class="page-hero-tag">🌿 ALLERGY INFO</div>
+      <h1 class="page-hero-title">アレルギー情報</h1>
+      <p class="page-hero-title-jp">Allergen Information</p>
+      <p class="page-hero-desc">お客様に安心してお召し上がりいただくために、<br>アレルゲン情報を詳しくご案内します。</p>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <section class="section">
+    <div class="section-inner">
+
+      <!-- Alert -->
+      <div class="allergy-alert reveal">
+        <div class="allergy-alert-icon">⚠️</div>
+        <div class="allergy-alert-text">
+          <strong>重要なお知らせ：</strong>当店のキッチンでは複数のアレルゲンを含む食材を使用しています。設備・調理器具の共有により交差汚染が起こる可能性があります。
+          重篤なアレルギーをお持ちのお客様は、ご注文前に必ず店舗スタッフまでお申し出ください。
+          本情報は定期的に更新しておりますが、食材の変更が生じる場合があります。最新情報は店頭でご確認ください。
+        </div>
+      </div>
+
+      <!-- Legend -->
+      <div class="reveal">
+        <h3 style="font-family:'Zen Maru Gothic',sans-serif;font-size:16px;font-weight:700;color:var(--text);margin-bottom:16px">凡例</h3>
+        <div class="legend-grid">
+          <div class="legend-item legend-contains">● 含む</div>
+          <div class="legend-item legend-may">△ 微量含む可能性あり</div>
+          <div class="legend-item legend-free">○ 含まない</div>
+        </div>
+      </div>
+
+      <!-- Allergen Table -->
+      <div class="reveal">
+        <div class="section-tag" style="margin-bottom:24px">🍙 おにぎり・むすび</div>
+        <div class="allergy-table-wrap">
+          <table class="allergy-table">
+            <thead>
+              <tr>
+                <th>商品名</th>
+                <th>小麦</th>
+                <th>卵</th>
+                <th>乳</th>
+                <th>落花生</th>
+                <th>大豆</th>
+                <th>魚介類</th>
+                <th>ごま</th>
+                <th>木の実</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>スパムむすび</td>
+                <td class="cell-yes">●</td>
+                <td class="cell-no">○</td>
+                <td class="cell-no">○</td>
+                <td class="cell-no">○</td>
+                <td class="cell-yes">●</td>
+                <td class="cell-no">○</td>
+                <td class="cell-no">○</td>
+                <td class="cell-no">○</td>
+              </tr>
+              <tr>
+                <td>アヒポケむすび</td>
+                <td class="cell-yes">●</td>
+                <td class="cell-no">○</td>
+                <td class="cell-no">○</td>
+                <td class="cell-no">○</td>
+                <td class="cell-yes">●</td>
+                <td class="cell-yes">●</td>
+                <td class="cell-yes">●</td>
+                <td class="cell-no">○</td>
+              </tr>
+              <tr>
+                <td>サーモンアボカド</td>
+                <td class="cell-may">△</td>
+                <td class="cell-no">○</td>
+                <td class="cell-no">○</td>
+                <td class="cell-no">○</td>
+                <td class="cell-may">△</td>
+                <td class="cell-yes">●</td>
+                <td class="cell-may">△</td>
+                <td class="cell-no">○</td>
+              </tr>
+              <tr>
+                <td>梅干しおにぎり</td>
+                <td class="cell-no">○</td>
+                <td class="cell-no">○</td>
+                <td class="cell-no">○</td>
+                <td class="cell-no">○</td>
+                <td class="cell-no">○</td>
+                <td class="cell-no">○</td>
+                <td class="cell-no">○</td>
+                <td class="cell-no">○</td>
+              </tr>
+              <tr>
+                <td>ツナマヨ</td>
+                <td class="cell-may">△</td>
+                <td class="cell-yes">●</td>
+                <td class="cell-no">○</td>
+                <td class="cell-no">○</td>
+                <td class="cell-may">△</td>
+                <td class="cell-yes">●</td>
+                <td class="cell-no">○</td>
+                <td class="cell-no">○</td>
+              </tr>
+              <tr>
+                <td>から揚げむすび</td>
+                <td class="cell-yes">●</td>
+                <td class="cell-yes">●</td>
+                <td class="cell-no">○</td>
+                <td class="cell-no">○</td>
+                <td class="cell-yes">●</td>
+                <td class="cell-no">○</td>
+                <td class="cell-no">○</td>
+                <td class="cell-no">○</td>
+              </tr>
+              <tr>
+                <td>ハワイアン照焼きチキン</td>
+                <td class="cell-yes">●</td>
+                <td class="cell-no">○</td>
+                <td class="cell-no">○</td>
+                <td class="cell-no">○</td>
+                <td class="cell-yes">●</td>
+                <td class="cell-no">○</td>
+                <td class="cell-no">○</td>
+                <td class="cell-no">○</td>
+              </tr>
+              <tr>
+                <td>桜スパムむすび（季節限定）</td>
+                <td class="cell-yes">●</td>
+                <td class="cell-no">○</td>
+                <td class="cell-no">○</td>
+                <td class="cell-no">○</td>
+                <td class="cell-yes">●</td>
+                <td class="cell-no">○</td>
+                <td class="cell-may">△</td>
+                <td class="cell-no">○</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Drinks Table -->
+      <div class="reveal">
+        <div class="section-tag" style="margin-bottom:24px">🥤 ドリンク</div>
+        <div class="allergy-table-wrap">
+          <table class="allergy-table">
+            <thead>
+              <tr>
+                <th>商品名</th>
+                <th>小麦</th>
+                <th>卵</th>
+                <th>乳</th>
+                <th>落花生</th>
+                <th>大豆</th>
+                <th>木の実</th>
+                <th>ごま</th>
+                <th>果物</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>コナコーヒー</td>
+                <td class="cell-no">○</td>
+                <td class="cell-no">○</td>
+                <td class="cell-no">○</td>
+                <td class="cell-no">○</td>
+                <td class="cell-no">○</td>
+                <td class="cell-no">○</td>
+                <td class="cell-no">○</td>
+                <td class="cell-no">○</td>
+              </tr>
+              <tr>
+                <td>抹茶ラテ</td>
+                <td class="cell-no">○</td>
+                <td class="cell-no">○</td>
+                <td class="cell-yes">●</td>
+                <td class="cell-no">○</td>
+                <td class="cell-may">△</td>
+                <td class="cell-no">○</td>
+                <td class="cell-no">○</td>
+                <td class="cell-no">○</td>
+              </tr>
+              <tr>
+                <td>マンゴースムージー</td>
+                <td class="cell-no">○</td>
+                <td class="cell-no">○</td>
+                <td class="cell-no">○</td>
+                <td class="cell-no">○</td>
+                <td class="cell-no">○</td>
+                <td class="cell-no">○</td>
+                <td class="cell-no">○</td>
+                <td class="cell-yes">●</td>
+              </tr>
+              <tr>
+                <td>パッションフルーツジュース</td>
+                <td class="cell-no">○</td>
+                <td class="cell-no">○</td>
+                <td class="cell-no">○</td>
+                <td class="cell-no">○</td>
+                <td class="cell-no">○</td>
+                <td class="cell-no">○</td>
+                <td class="cell-no">○</td>
+                <td class="cell-yes">●</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Info Cards -->
+      <div class="text-center">
+        <div class="section-tag reveal">ℹ️ MORE INFO</div>
+        <h2 class="section-title reveal reveal-delay-1">アレルギーに関するご案内</h2>
+      </div>
+      <div class="info-card-grid">
+        <div class="info-card reveal reveal-delay-1">
+          <div class="info-card-icon">🌾</div>
+          <div class="info-card-title">グルテンフリー対応</div>
+          <p class="info-card-desc">梅干し・昆布・塩などのシンプルなおにぎりはグルテンを含みません。ただし共用のキッチンで調理するため、完全な保証はできません。</p>
+        </div>
+        <div class="info-card reveal reveal-delay-2">
+          <div class="info-card-icon">🌱</div>
+          <div class="info-card-title">ヴィーガン対応</div>
+          <p class="info-card-desc">梅干し・昆布・野菜系のおにぎりはヴィーガン対応です。ご注文時にスタッフにお申し出いただくことで対応可能なメニューをご案内します。</p>
+        </div>
+        <div class="info-card reveal reveal-delay-3">
+          <div class="info-card-icon">🤱</div>
+          <div class="info-card-title">乳幼児・妊婦の方へ</div>
+          <p class="info-card-desc">乳幼児や妊婦の方にお召し上がりいただく際は、スタッフまで原材料の詳細をお尋ねください。個別にご相談に応じます。</p>
+        </div>
+        <div class="info-card reveal reveal-delay-1">
+          <div class="info-card-icon">📋</div>
+          <div class="info-card-title">原材料一覧</div>
+          <p class="info-card-desc">詳細な原材料一覧は店頭のメニューブックに掲載しています。また、お問い合わせフォームからもご請求いただけます。</p>
+        </div>
+        <div class="info-card reveal reveal-delay-2">
+          <div class="info-card-icon">🔄</div>
+          <div class="info-card-title">情報の更新について</div>
+          <p class="info-card-desc">アレルゲン情報は食材・調理方法の変更に応じて更新されます。最新情報は必ず店頭でご確認ください。本ページの情報と異なる場合は店頭情報が優先されます。</p>
+        </div>
+        <div class="info-card reveal reveal-delay-3">
+          <div class="info-card-icon">💬</div>
+          <div class="info-card-title">お気軽にご相談を</div>
+          <p class="info-card-desc">アレルギーに関するご不明点は遠慮なくスタッフまでお声がけください。お客様に安心してお食事いただけるよう、誠心誠意対応いたします。</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="highlight-banner">
+    <div class="section-inner">
+      <div class="reveal">
+        <h2 class="highlight-title">🌿 安心してお食事いただくために</h2>
+        <p class="highlight-desc">ご不明な点はいつでもお気軽にお問い合わせください。<br>スタッフが丁寧にご対応いたします。</p>
+        <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
+          <a href="contact.html" class="btn-white">📧 お問い合わせ</a>
+          <a href="faq.html" class="btn-white" style="background:rgba(255,255,255,0.2);color:#fff;border:2px solid rgba(255,255,255,0.5)">❓ よくある質問</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer id="footer"></footer>
+  <button id="back-top" aria-label="トップへ戻る">↑</button>
+  <script src="components.js"></script>
+</body>
+</html>

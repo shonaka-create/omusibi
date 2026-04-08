@@ -176,24 +176,24 @@
           <div class="footer-links">
             <a href="about.html"     class="footer-link" data-i18n="footer.link.story">${T[currentLang]['footer.link.story']}</a>
             <a href="locations.html" class="footer-link" data-i18n="footer.link.stores">${T[currentLang]['footer.link.stores']}</a>
-            <a href="contact.html"   class="footer-link" data-i18n="footer.link.catering">${T[currentLang]['footer.link.catering']}</a>
-            <a href="contact.html"   class="footer-link" data-i18n="footer.link.careers">${T[currentLang]['footer.link.careers']}</a>
+            <a href="catering.html"  class="footer-link" data-i18n="footer.link.catering">${T[currentLang]['footer.link.catering']}</a>
+            <a href="careers.html"   class="footer-link" data-i18n="footer.link.careers">${T[currentLang]['footer.link.careers']}</a>
           </div>
         </div>
         <div>
           <div class="footer-col-title" data-i18n="footer.col.support">${T[currentLang]['footer.col.support']}</div>
           <div class="footer-links">
-            <a href="contact.html" class="footer-link" data-i18n="footer.link.contact">${T[currentLang]['footer.link.contact']}</a>
-            <a href="contact.html" class="footer-link" data-i18n="footer.link.faq">${T[currentLang]['footer.link.faq']}</a>
-            <a href="contact.html" class="footer-link" data-i18n="footer.link.allergy">${T[currentLang]['footer.link.allergy']}</a>
+            <a href="contact.html"  class="footer-link" data-i18n="footer.link.contact">${T[currentLang]['footer.link.contact']}</a>
+            <a href="faq.html"      class="footer-link" data-i18n="footer.link.faq">${T[currentLang]['footer.link.faq']}</a>
+            <a href="allergy.html"  class="footer-link" data-i18n="footer.link.allergy">${T[currentLang]['footer.link.allergy']}</a>
           </div>
         </div>
       </div>
       <div class="footer-bottom">
         <div class="footer-copy" data-i18n="footer.copy">${T[currentLang]['footer.copy']}</div>
         <div class="footer-bottom-links">
-          <a href="#" class="footer-bottom-link" data-i18n="footer.privacy">${T[currentLang]['footer.privacy']}</a>
-          <a href="#" class="footer-bottom-link" data-i18n="footer.terms">${T[currentLang]['footer.terms']}</a>
+          <a href="privacy.html" class="footer-bottom-link" data-i18n="footer.privacy">${T[currentLang]['footer.privacy']}</a>
+          <a href="terms.html"   class="footer-bottom-link" data-i18n="footer.terms">${T[currentLang]['footer.terms']}</a>
         </div>
       </div>
     </div>

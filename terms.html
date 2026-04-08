@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>利用規約 | MUSUBI CAFE IYASUME</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Pacifico&family=Zen+Maru+Gothic:wght@400;500;700&family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .terms-hero-bg {
+      position: absolute; inset: 0;
+      background: linear-gradient(160deg, #F0F5FF 0%, #FFF5F0 100%);
+    }
+    .terms-hero-bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 65% 30%, rgba(78,205,196,0.12) 0%, transparent 55%),
+                  radial-gradient(ellipse at 20% 70%, rgba(255,107,122,0.1) 0%, transparent 50%);
+    }
+
+    /* ---- Terms Layout ---- */
+    .terms-layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 48px;
+      align-items: flex-start;
+    }
+    .terms-toc {
+      position: sticky;
+      top: 96px;
+    }
+    .terms-toc-title {
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      color: var(--text-sub);
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .terms-toc-list { list-style: none; }
+    .terms-toc-item a {
+      display: block;
+      padding: 8px 12px;
+      border-radius: 10px;
+      font-size: 13px;
+      color: var(--text-sub);
+      transition: all 0.2s;
+      border-left: 2px solid transparent;
+    }
+    .terms-toc-item a:hover {
+      background: var(--surface-alt);
+      color: var(--mint-dark);
+      border-left-color: var(--mint);
+    }
+
+    /* ---- Terms Content ---- */
+    .terms-meta {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 40px;
+      padding: 16px 20px;
+      background: var(--surface-alt);
+      border-radius: 12px;
+      font-size: 13px;
+      color: var(--text-sub);
+    }
+    .terms-section { margin-bottom: 48px; scroll-margin-top: 96px; }
+    .terms-section-num {
+      font-family: var(--font-display);
+      font-size: 12px;
+      color: var(--mint-dark);
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+    }
+    .terms-section-title {
+      font-family: "Zen Maru Gothic", sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--border);
+    }
+    .terms-text {
+      font-size: 15px;
+      color: var(--text-sub);
+      line-height: 2;
+    }
+    .terms-text p { margin-bottom: 12px; }
+    .terms-text ol {
+      list-style: none;
+      counter-reset: item;
+      margin: 12px 0;
+    }
+    .terms-text ol li {
+      counter-increment: item;
+      padding: 8px 0 8px 28px;
+      position: relative;
+      font-size: 14px;
+      border-bottom: 1px dashed var(--border);
+    }
+    .terms-text ol li:last-child { border-bottom: none; }
+    .terms-text ol li::before {
+      content: counter(item) '.';
+      position: absolute;
+      left: 0;
+      color: var(--mint-dark);
+      font-weight: 800;
+      font-size: 13px;
+      top: 10px;
+    }
+    .terms-highlight {
+      background: linear-gradient(135deg, #E8FBF9, #E8F5FF);
+      border-left: 4px solid var(--mint);
+      border-radius: 0 12px 12px 0;
+      padding: 16px 20px;
+      margin: 16px 0;
+      font-size: 14px;
+      color: var(--text);
+    }
+
+    @media (max-width: 1024px) {
+      .terms-layout { grid-template-columns: 1fr; }
+      .terms-toc { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="particles" id="particles"></div>
+  <header id="header"></header>
+
+  <!-- Hero -->
+  <div class="page-hero">
+    <div class="terms-hero-bg page-hero-bg"></div>
+    <div class="page-hero-floats">
+      <span class="page-hero-float" style="top:14%;left:5%;animation-duration:7s">📜</span>
+      <span class="page-hero-float" style="top:28%;right:6%;animation-duration:6s;animation-delay:-2s">⚖️</span>
+      <span class="page-hero-float" style="bottom:22%;left:10%;animation-duration:8s;animation-delay:-5s">🍙</span>
+      <span class="page-hero-float" style="bottom:28%;right:8%;animation-duration:5s;animation-delay:-3s">🌺</span>
+    </div>
+    <div class="page-hero-content reveal">
+      <div class="page-hero-tag">📜 TERMS OF USE</div>
+      <h1 class="page-hero-title">利用規約</h1>
+      <p class="page-hero-title-jp">Terms of Use</p>
+      <p class="page-hero-desc">当ウェブサイトおよびサービスをご利用いただく際の<br>規約をご確認ください。</p>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="terms-layout">
+
+        <!-- TOC -->
+        <aside class="terms-toc reveal">
+          <div class="terms-toc-title">目次</div>
+          <ul class="terms-toc-list">
+            <li class="terms-toc-item"><a href="#t1">第1条 適用範囲</a></li>
+            <li class="terms-toc-item"><a href="#t2">第2条 利用登録</a></li>
+            <li class="terms-toc-item"><a href="#t3">第3条 注文・決済</a></li>
+            <li class="terms-toc-item"><a href="#t4">第4条 キャンセル・返金</a></li>
+            <li class="terms-toc-item"><a href="#t5">第5条 禁止事項</a></li>
+            <li class="terms-toc-item"><a href="#t6">第6条 知的財産権</a></li>
+            <li class="terms-toc-item"><a href="#t7">第7条 免責事項</a></li>
+            <li class="terms-toc-item"><a href="#t8">第8条 準拠法・管轄</a></li>
+            <li class="terms-toc-item"><a href="#t9">第9条 規約の変更</a></li>
+            <li class="terms-toc-item"><a href="#t10">第10条 お問い合わせ</a></li>
+          </ul>
+        </aside>
+
+        <!-- Terms Body -->
+        <div class="terms-body reveal">
+          <div class="terms-meta">
+            <span>📅 制定日：2024年1月1日</span>
+            <span>🔄 最終更新：2024年10月1日</span>
+          </div>
+
+          <div class="terms-section" id="t1">
+            <div class="terms-section-num">ARTICLE 01</div>
+            <div class="terms-section-title">適用範囲</div>
+            <div class="terms-text">
+              <p>この利用規約（以下「本規約」）は、MUSUBI CAFE IYASUME（以下「当店」）が提供するウェブサイト、オンラインショップ、およびケータリング等の各サービス（以下「本サービス」）の利用に関する条件を定めるものです。</p>
+              <p>本サービスをご利用いただくことで、お客様は本規約に同意したものとみなします。本規約に同意いただけない場合は、本サービスのご利用をお控えください。</p>
+            </div>
+          </div>
+
+          <div class="terms-section" id="t2">
+            <div class="terms-section-num">ARTICLE 02</div>
+            <div class="terms-section-title">会員登録・アカウント</div>
+            <div class="terms-text">
+              <p>一部のサービスのご利用には会員登録が必要です。登録にあたり以下の事項をお守りください。</p>
+              <ol>
+                <li>正確かつ最新の情報を登録すること</li>
+                <li>アカウントのパスワードを他者と共有しないこと</li>
+                <li>不正アクセスや不審な活動を発見した場合は直ちにご連絡いただくこと</li>
+                <li>アカウントの管理はお客様ご自身の責任で行うこと</li>
+                <li>18歳未満の方は保護者の同意を得た上でご利用いただくこと</li>
+              </ol>
+            </div>
+          </div>
+
+          <div class="terms-section" id="t3">
+            <div class="terms-section-num">ARTICLE 03</div>
+            <div class="terms-section-title">注文・決済</div>
+            <div class="terms-text">
+              <p>オンラインショップまたはケータリングのご注文については以下の通りです。</p>
+              <ol>
+                <li>ご注文は確認メール送信をもって成立します</li>
+                <li>在庫状況により、ご注文をお断りする場合があります</li>
+                <li>価格はすべて税込表示です（ハワイ州消費税が別途かかる場合があります）</li>
+                <li>決済はクレジットカード・各種電子決済を受け付けています</li>
+                <li>クレジットカード情報の管理は決済代行会社が行い、当店は保持しません</li>
+              </ol>
+              <div class="terms-highlight">
+                💳 お支払い情報はPCI DSS準拠の安全な環境で処理されます。
+              </div>
+            </div>
+          </div>
+
+          <div class="terms-section" id="t4">
+            <div class="terms-section-num">ARTICLE 04</div>
+            <div class="terms-section-title">キャンセル・返品・返金</div>
+            <div class="terms-text">
+              <p>食品の性質上、以下の方針に従います。</p>
+              <ol>
+                <li>食品の特性上、お客様都合によるキャンセル・返品はお断りしています</li>
+                <li>商品に欠陥や誤りがあった場合は、受領後24時間以内にご連絡ください</li>
+                <li>ケータリングのキャンセルは、イベント日の7日前まで全額返金いたします</li>
+                <li>7日前〜前日のキャンセルは50%のキャンセル料が発生します</li>
+                <li>当日キャンセルの場合、全額のキャンセル料が発生します</li>
+                <li>当店の都合によるキャンセルの場合は全額返金します</li>
+              </ol>
+            </div>
+          </div>
+
+          <div class="terms-section" id="t5">
+            <div class="terms-section-num">ARTICLE 05</div>
+            <div class="terms-section-title">禁止事項</div>
+            <div class="terms-text">
+              <p>本サービスのご利用にあたり、以下の行為を禁止します。</p>
+              <ol>
+                <li>法令または本規約に違反する行為</li>
+                <li>他のお客様・スタッフへの迷惑行為・嫌がらせ</li>
+                <li>当店システムへの不正アクセスや妨害</li>
+                <li>虚偽の情報の登録・提供</li>
+                <li>当店の許可なくコンテンツを複製・転載・配布すること</li>
+                <li>商業目的での無断転売</li>
+                <li>その他、当店が不適切と判断する行為</li>
+              </ol>
+            </div>
+          </div>
+
+          <div class="terms-section" id="t6">
+            <div class="terms-section-num">ARTICLE 06</div>
+            <div class="terms-section-title">知的財産権</div>
+            <div class="terms-text">
+              <p>本ウェブサイト上のコンテンツ（テキスト・画像・デザイン・ロゴ・レシピなど）の著作権その他知的財産権は、当店または正当な権利者に帰属します。</p>
+              <p>個人的な非商業目的の利用を除き、当店の事前の書面による許可なくこれらを複製・転用・商業利用することを禁止します。</p>
+              <div class="terms-highlight">
+                🍙 レシピや商標の無断使用は固くお断りしています。ご利用を希望される場合は<a href="contact.html" style="color:var(--mint-dark);font-weight:700">お問い合わせ</a>ください。
+              </div>
+            </div>
+          </div>
+
+          <div class="terms-section" id="t7">
+            <div class="terms-section-num">ARTICLE 07</div>
+            <div class="terms-section-title">免責事項</div>
+            <div class="terms-text">
+              <p>当店は以下について責任を負いません。</p>
+              <ol>
+                <li>天災・インフラ障害など不可抗力による配送遅延・サービス停止</li>
+                <li>お客様の環境（端末・通信状況）に起因するサービス利用の問題</li>
+                <li>第三者によるサービスへの不正介入</li>
+                <li>リンク先の外部サイトの内容・安全性</li>
+                <li>情報の正確性・最新性（可能な限り最新の情報を提供しますが保証はできません）</li>
+              </ol>
+              <p>アレルギーに関するご不安がある場合は必ず事前に店舗スタッフにお申し出ください。</p>
+            </div>
+          </div>
+
+          <div class="terms-section" id="t8">
+            <div class="terms-section-num">ARTICLE 08</div>
+            <div class="terms-section-title">準拠法・管轄裁判所</div>
+            <div class="terms-text">
+              <p>本規約の解釈・適用については、ハワイ州の法律を準拠法とします。</p>
+              <p>本サービスに関して紛争が生じた場合は、ホノルル地方裁判所を第一審の専属的合意管轄裁判所とします。</p>
+            </div>
+          </div>
+
+          <div class="terms-section" id="t9">
+            <div class="terms-section-num">ARTICLE 09</div>
+            <div class="terms-section-title">利用規約の変更</div>
+            <div class="terms-text">
+              <p>当店は必要に応じて本規約を変更することがあります。重要な変更がある場合はウェブサイト上でお知らせします。変更後も本サービスをご利用いただいた場合、変更後の規約に同意したものとみなします。</p>
+            </div>
+          </div>
+
+          <div class="terms-section" id="t10">
+            <div class="terms-section-num">ARTICLE 10</div>
+            <div class="terms-section-title">お問い合わせ</div>
+            <div class="terms-text">
+              <p>本規約に関するご質問は以下までご連絡ください。</p>
+              <div class="terms-highlight">
+                📧 MUSUBI CAFE IYASUME — カスタマーサポート<br>
+                住所：123 Kalakaua Ave, Waikiki, Honolulu, HI 96815<br>
+                お問い合わせ：<a href="contact.html" style="color:var(--mint-dark);font-weight:700">お問い合わせフォームより</a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer id="footer"></footer>
+  <button id="back-top" aria-label="トップへ戻る">↑</button>
+  <script src="components.js"></script>
+</body>
+</html>
