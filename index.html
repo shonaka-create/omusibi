@@ -1189,73 +1189,36 @@
     .tiktok .section-title-en { color: rgba(255,255,255,0.5); }
     .tiktok-grid {
       display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 10px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
       margin-bottom: 40px;
     }
-    .tiktok-item {
-      aspect-ratio: 9/16;
+    .tiktok-card {
       border-radius: 16px;
       overflow: hidden;
-      cursor: pointer;
-      position: relative;
-      transition: all 0.35s var(--ease-bounce);
+      background: #1a1a1a;
+      transition: transform 0.35s var(--ease-bounce), box-shadow 0.35s;
+      /* TikTok embed の最小幅 325px を守るためアスペクト比ではなく高さを固定 */
+      height: 740px;
     }
-    .tiktok-item:hover {
-      transform: scale(1.08) rotate(-1deg);
-      z-index: 2;
-      box-shadow: 0 12px 32px rgba(105,201,208,0.3);
+    .tiktok-card:hover {
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: 0 16px 40px rgba(105,201,208,0.25);
     }
-    .tiktok-item-inner {
-      width: 100%; height: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      font-size: 28px;
+    .tiktok-card iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
     }
-    .tiktok-item-inner span.tiktok-play {
-      font-size: 14px;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      opacity: 0.7;
-    }
-    .tiktok-overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(105,201,208,0);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.3s;
-    }
-    .tiktok-overlay-icon {
-      opacity: 0;
-      font-size: 32px;
-      color: #fff;
-      transition: opacity 0.3s;
-    }
-    .tiktok-item:hover .tiktok-overlay { background: rgba(0,0,0,0.45); }
-    .tiktok-item:hover .tiktok-overlay-icon { opacity: 1; }
-
-    .tt1  { background: linear-gradient(160deg, #1a1a2e, #16213e); }
-    .tt2  { background: linear-gradient(160deg, #0f3460, #533483); }
-    .tt3  { background: linear-gradient(160deg, #1a1a2e, #e94560); }
-    .tt4  { background: linear-gradient(160deg, #16213e, #69C9D0); }
-    .tt5  { background: linear-gradient(160deg, #2d132c, #EE1D52); }
-    .tt6  { background: linear-gradient(160deg, #0a3d62, #69C9D0); }
 
     @media (max-width: 1024px) {
-      .tiktok-grid { grid-template-columns: repeat(4, 1fr); }
-      .tiktok-grid .tiktok-item:nth-child(n+5) { display: none; }
+      .tiktok-grid { grid-template-columns: repeat(2, 1fr); }
+      .tiktok-card { height: 620px; }
     }
     @media (max-width: 768px) {
-      .tiktok-grid { grid-template-columns: repeat(3, 1fr); }
-      .tiktok-grid .tiktok-item:nth-child(n+4) { display: none; }
-    }
-    @media (max-width: 480px) {
-      .tiktok-grid { gap: 6px; }
+      .tiktok-grid { grid-template-columns: 1fr; }
+      .tiktok-card { height: 680px; }
     }
 
     /* =============================================
@@ -2016,12 +1979,30 @@
       </p>
 
       <div class="tiktok-grid reveal reveal-delay-2">
-        <div class="tiktok-item tt1"><div class="tiktok-item-inner">🍙<span class="tiktok-play">▶ PLAY</span></div><div class="tiktok-overlay"><span class="tiktok-overlay-icon">▶</span></div></div>
-        <div class="tiktok-item tt2"><div class="tiktok-item-inner">🌺<span class="tiktok-play">▶ PLAY</span></div><div class="tiktok-overlay"><span class="tiktok-overlay-icon">▶</span></div></div>
-        <div class="tiktok-item tt3"><div class="tiktok-item-inner">🦐<span class="tiktok-play">▶ PLAY</span></div><div class="tiktok-overlay"><span class="tiktok-overlay-icon">▶</span></div></div>
-        <div class="tiktok-item tt4"><div class="tiktok-item-inner">🏖️<span class="tiktok-play">▶ PLAY</span></div><div class="tiktok-overlay"><span class="tiktok-overlay-icon">▶</span></div></div>
-        <div class="tiktok-item tt5"><div class="tiktok-item-inner">🍱<span class="tiktok-play">▶ PLAY</span></div><div class="tiktok-overlay"><span class="tiktok-overlay-icon">▶</span></div></div>
-        <div class="tiktok-item tt6"><div class="tiktok-item-inner">🌊<span class="tiktok-play">▶ PLAY</span></div><div class="tiktok-overlay"><span class="tiktok-overlay-icon">▶</span></div></div>
+        <div class="tiktok-card">
+          <iframe src="https://www.tiktok.com/embed/v2/7570661794629389576"
+            allowfullscreen scrolling="no" allow="encrypted-media;" loading="lazy"></iframe>
+        </div>
+        <div class="tiktok-card">
+          <iframe src="https://www.tiktok.com/embed/v2/7573266804588465426"
+            allowfullscreen scrolling="no" allow="encrypted-media;" loading="lazy"></iframe>
+        </div>
+        <div class="tiktok-card">
+          <iframe src="https://www.tiktok.com/embed/v2/7575103080937704724"
+            allowfullscreen scrolling="no" allow="encrypted-media;" loading="lazy"></iframe>
+        </div>
+        <div class="tiktok-card">
+          <iframe src="https://www.tiktok.com/embed/v2/7579214774693530898"
+            allowfullscreen scrolling="no" allow="encrypted-media;" loading="lazy"></iframe>
+        </div>
+        <div class="tiktok-card">
+          <iframe src="https://www.tiktok.com/embed/v2/7581095262819618056"
+            allowfullscreen scrolling="no" allow="encrypted-media;" loading="lazy"></iframe>
+        </div>
+        <div class="tiktok-card">
+          <iframe src="https://www.tiktok.com/embed/v2/7583686037784759572"
+            allowfullscreen scrolling="no" allow="encrypted-media;" loading="lazy"></iframe>
+        </div>
       </div>
 
       <div class="reveal" style="margin-top:40px">
