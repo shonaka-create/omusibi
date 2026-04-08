@@ -191,17 +191,25 @@ ul { list-style: none; }
   display: none;
   position: fixed;
   inset: 72px 0 0 0;
-  background: rgba(255,248,245,0.98);
-  backdrop-filter: blur(16px);
+  background: #FFF8F5;           /* 完全不透明 — ヒーロー背景との干渉を防ぐ */
+  border-top: 2px solid var(--border);
+  box-shadow: 0 8px 32px rgba(255,107,122,0.12);
   z-index: 99;
-  padding: 32px 24px;
+  padding: 32px 24px 48px;
   flex-direction: column;
-  gap: 24px;
+  gap: 8px;
   transform: translateX(100%);
   transition: transform 0.4s var(--ease-bounce);
+  overflow-y: auto;
 }
 .mobile-menu.open { transform: translateX(0); }
-.mobile-menu .nav-link { font-size: 18px; padding: 12px 0; border-bottom: 1px solid var(--border); }
+.mobile-menu .nav-link {
+  font-size: 18px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+  display: block;
+}
 
 /* =============================================
    Page Hero (subpage用 小型ヒーロー)

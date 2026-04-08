@@ -311,14 +311,16 @@
       display: none;
       position: fixed;
       inset: 72px 0 0 0;
-      background: rgba(255, 248, 245, 0.98);
-      backdrop-filter: blur(16px);
+      background: #FFF8F5;
+      border-top: 2px solid var(--border);
+      box-shadow: 0 8px 32px rgba(255,107,122,0.12);
       z-index: 99;
-      padding: 32px 24px;
+      padding: 32px 24px 48px;
       flex-direction: column;
-      gap: 24px;
+      gap: 8px;
       transform: translateX(100%);
       transition: transform 0.4s var(--ease-bounce);
+      overflow-y: auto;
     }
     .mobile-menu.open { transform: translateX(0); }
     .mobile-menu .nav-link {
@@ -1176,6 +1178,87 @@
     .ig12 { background: linear-gradient(135deg, #4ECDC4, #FF6B7A); }
 
     /* =============================================
+       TikTok Section
+    ============================================= */
+    .tiktok {
+      background: #0f0f0f;
+      text-align: center;
+    }
+    .tiktok .section-tag { color: #69C9D0; }
+    .tiktok .section-title { color: #fff; }
+    .tiktok .section-title-en { color: rgba(255,255,255,0.5); }
+    .tiktok-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 10px;
+      margin-bottom: 40px;
+    }
+    .tiktok-item {
+      aspect-ratio: 9/16;
+      border-radius: 16px;
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.35s var(--ease-bounce);
+    }
+    .tiktok-item:hover {
+      transform: scale(1.08) rotate(-1deg);
+      z-index: 2;
+      box-shadow: 0 12px 32px rgba(105,201,208,0.3);
+    }
+    .tiktok-item-inner {
+      width: 100%; height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 28px;
+    }
+    .tiktok-item-inner span.tiktok-play {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      opacity: 0.7;
+    }
+    .tiktok-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(105,201,208,0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s;
+    }
+    .tiktok-overlay-icon {
+      opacity: 0;
+      font-size: 32px;
+      color: #fff;
+      transition: opacity 0.3s;
+    }
+    .tiktok-item:hover .tiktok-overlay { background: rgba(0,0,0,0.45); }
+    .tiktok-item:hover .tiktok-overlay-icon { opacity: 1; }
+
+    .tt1  { background: linear-gradient(160deg, #1a1a2e, #16213e); }
+    .tt2  { background: linear-gradient(160deg, #0f3460, #533483); }
+    .tt3  { background: linear-gradient(160deg, #1a1a2e, #e94560); }
+    .tt4  { background: linear-gradient(160deg, #16213e, #69C9D0); }
+    .tt5  { background: linear-gradient(160deg, #2d132c, #EE1D52); }
+    .tt6  { background: linear-gradient(160deg, #0a3d62, #69C9D0); }
+
+    @media (max-width: 1024px) {
+      .tiktok-grid { grid-template-columns: repeat(4, 1fr); }
+      .tiktok-grid .tiktok-item:nth-child(n+5) { display: none; }
+    }
+    @media (max-width: 768px) {
+      .tiktok-grid { grid-template-columns: repeat(3, 1fr); }
+      .tiktok-grid .tiktok-item:nth-child(n+4) { display: none; }
+    }
+    @media (max-width: 480px) {
+      .tiktok-grid { gap: 6px; }
+    }
+
+    /* =============================================
        Footer
     ============================================= */
     footer {
@@ -1386,8 +1469,8 @@
       </nav>
 
       <div class="lang-switch">
-        <button class="lang-btn">EN</button>
-        <button class="lang-btn active">JP</button>
+        <button class="lang-btn" data-lang="en">EN</button>
+        <button class="lang-btn active" data-lang="jp">JP</button>
       </div>
 
       <a href="#menu" class="header-cta">🛒 オンラインショップ</a>
@@ -1430,18 +1513,18 @@
     <div class="hero-overlay"></div>
 
     <div class="hero-content">
-      <div class="hero-badge">
+      <div class="hero-badge" data-en="🌺 &nbsp;Born in Hawaii, Rooted in Japan&nbsp; 🍙">
         🌺 &nbsp;ハワイ発・日本のおにぎり文化 &nbsp;🍙
       </div>
       <h1 class="hero-title">Musubi<br>Cafe</h1>
-      <p class="hero-title-jp">いやす夢のおにぎり、ハワイで出会う</p>
-      <p class="hero-desc">
+      <p class="hero-title-jp" data-en="Hawaiian Onigiri, a New Experience">いやす夢のおにぎり、ハワイで出会う</p>
+      <p class="hero-desc" data-en="A new onigiri experience where Hawaiian ingredients meet Japanese tradition.<br>Handmade warmth, just for you.">
         ハワイの食材と日本の伝統が融合した、新しいおにぎり体験。<br>
         手作りの温かさをあなたへ。
       </p>
       <div class="hero-ctas">
-        <a href="#menu" class="btn-primary">🍙 メニューを見る</a>
-        <a href="#locations" class="btn-secondary">📍 店舗を探す</a>
+        <a href="#menu" class="btn-primary" data-en="🍙 See Menu">🍙 メニューを見る</a>
+        <a href="#locations" class="btn-secondary" data-en="📍 Find a Store">📍 店舗を探す</a>
       </div>
     </div>
 
@@ -1494,12 +1577,12 @@
         </div>
 
         <div class="about-text">
-          <div class="section-tag reveal">✨ ABOUT US</div>
-          <h2 class="section-title reveal reveal-delay-1">
+          <div class="section-tag reveal" data-en="✨ ABOUT US">✨ ABOUT US</div>
+          <h2 class="section-title reveal reveal-delay-1" data-en="Made with Hawaiian Breeze<br>and Japanese Heart">
             ハワイの海風と、<br>日本の心で作る
           </h2>
           <p class="section-title-en reveal reveal-delay-2">Made with Aloha Spirit</p>
-          <p class="about-desc reveal reveal-delay-2">
+          <p class="about-desc reveal reveal-delay-2" data-en="Born in Waikiki, Honolulu in 2009, IYASUME blends the rich flavors of Hawaii with the traditional Japanese onigiri culture — handmade fresh every day. Where the Aloha spirit meets Japanese omotenashi, we invite you to a moment of comfort.">
             2009年、ホノルルのワイキキで誕生した「いやす夢」。
             ハワイの豊かな食材と日本の伝統的なおにぎり文化を融合させ、
             毎日手作りで提供しています。アロハの心と日本の「おもてなし」が
@@ -1525,8 +1608,8 @@
           </div>
 
           <div class="reveal reveal-delay-4" style="display:flex;gap:16px;flex-wrap:wrap">
-            <a href="#" class="btn-primary">🌺 ブランドの物語</a>
-            <a href="#locations" class="btn-secondary">店舗を見る</a>
+            <a href="#" class="btn-primary" data-en="🌺 Our Story">🌺 ブランドの物語</a>
+            <a href="#locations" class="btn-secondary" data-en="See Locations">店舗を見る</a>
           </div>
         </div>
       </div>
@@ -1539,8 +1622,8 @@
   <section class="section menu" id="menu">
     <div class="section-inner">
       <div class="menu-header">
-        <div class="section-tag reveal">🍙 OUR MENU</div>
-        <h2 class="section-title reveal reveal-delay-1">人気のおにぎりメニュー</h2>
+        <div class="section-tag reveal" data-en="🍙 OUR MENU">🍙 OUR MENU</div>
+        <h2 class="section-title reveal reveal-delay-1" data-en="Our Popular Onigiri Menu">人気のおにぎりメニュー</h2>
         <p class="section-title-en reveal reveal-delay-2">Handmade with Fresh Hawaiian Ingredients</p>
       </div>
 
@@ -1679,12 +1762,12 @@
     </div>
     <div class="section-inner">
       <div class="reveal">
-        <h2 class="highlight-title">DoorDashでデリバリー</h2>
-        <p class="highlight-desc">
+        <h2 class="highlight-title" data-en="Delivery via DoorDash">DoorDashでデリバリー</h2>
+        <p class="highlight-desc" data-en="IYASUME onigiri delivered right to you.<br>We deliver warm and fresh across all of Honolulu.">
           いやす夢のおにぎりが、今すぐあなたの元に。<br>
           ホノルル全域へ温かいうちにお届けします。
         </p>
-        <a href="#" class="btn-white">🛵 今すぐ注文する</a>
+        <a href="#" class="btn-white" data-en="🛵 Order Now">🛵 今すぐ注文する</a>
       </div>
     </div>
   </div>
@@ -1695,8 +1778,8 @@
   <section class="section locations" id="locations">
     <div class="section-inner">
       <div class="locations-header">
-        <div class="section-tag reveal">📍 OUR LOCATIONS</div>
-        <h2 class="section-title reveal reveal-delay-1">ハワイ全島に展開中</h2>
+        <div class="section-tag reveal" data-en="📍 OUR LOCATIONS">📍 OUR LOCATIONS</div>
+        <h2 class="section-title reveal reveal-delay-1" data-en="Across the Hawaiian Islands">ハワイ全島に展開中</h2>
         <p class="section-title-en reveal reveal-delay-2">7 Locations across Hawaii</p>
       </div>
 
@@ -1892,9 +1975,9 @@
   ============================================= -->
   <section class="section instagram" id="instagram">
     <div class="section-inner">
-      <div class="section-tag reveal" style="justify-content:center">📸 INSTAGRAM</div>
+      <div class="section-tag reveal" style="justify-content:center" data-en="📸 INSTAGRAM">📸 INSTAGRAM</div>
       <h2 class="section-title reveal reveal-delay-1">@iyasumehawaii</h2>
-      <p class="section-title-en reveal reveal-delay-2" style="margin-bottom:48px">
+      <p class="section-title-en reveal reveal-delay-2" style="margin-bottom:48px" data-en="Follow us for daily Hawaiian onigiri life!">
         フォローしてハワイのおにぎりライフをチェック！
       </p>
 
@@ -1914,8 +1997,40 @@
       </div>
 
       <div class="reveal" style="margin-top:40px">
-        <a href="https://instagram.com/iyasumehawaii" class="btn-primary">
+        <a href="https://www.instagram.com/omusubi_jp_/" target="_blank" rel="noopener" class="btn-primary" data-en="📸 See More on Instagram">
           📸 Instagramでもっと見る
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       TIKTOK
+  ============================================= -->
+  <section class="section tiktok" id="tiktok">
+    <div class="section-inner">
+      <div class="section-tag reveal" style="justify-content:center" data-en="🎵 TIKTOK">🎵 TIKTOK</div>
+      <h2 class="section-title reveal reveal-delay-1">@omusubi_jp</h2>
+      <p class="section-title-en reveal reveal-delay-2" style="margin-bottom:48px" data-en="Watch our fun onigiri videos on TikTok!">
+        TikTokでおにぎりの楽しい動画をチェック！
+      </p>
+
+      <div class="tiktok-grid reveal reveal-delay-2">
+        <div class="tiktok-item tt1"><div class="tiktok-item-inner">🍙<span class="tiktok-play">▶ PLAY</span></div><div class="tiktok-overlay"><span class="tiktok-overlay-icon">▶</span></div></div>
+        <div class="tiktok-item tt2"><div class="tiktok-item-inner">🌺<span class="tiktok-play">▶ PLAY</span></div><div class="tiktok-overlay"><span class="tiktok-overlay-icon">▶</span></div></div>
+        <div class="tiktok-item tt3"><div class="tiktok-item-inner">🦐<span class="tiktok-play">▶ PLAY</span></div><div class="tiktok-overlay"><span class="tiktok-overlay-icon">▶</span></div></div>
+        <div class="tiktok-item tt4"><div class="tiktok-item-inner">🏖️<span class="tiktok-play">▶ PLAY</span></div><div class="tiktok-overlay"><span class="tiktok-overlay-icon">▶</span></div></div>
+        <div class="tiktok-item tt5"><div class="tiktok-item-inner">🍱<span class="tiktok-play">▶ PLAY</span></div><div class="tiktok-overlay"><span class="tiktok-overlay-icon">▶</span></div></div>
+        <div class="tiktok-item tt6"><div class="tiktok-item-inner">🌊<span class="tiktok-play">▶ PLAY</span></div><div class="tiktok-overlay"><span class="tiktok-overlay-icon">▶</span></div></div>
+      </div>
+
+      <div class="reveal" style="margin-top:40px">
+        <a href="https://www.tiktok.com/@omusubi_jp" target="_blank" rel="noopener"
+           style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#69C9D0,#EE1D52);color:#fff;padding:16px 40px;border-radius:var(--radius-pill);font-size:16px;font-weight:800;letter-spacing:0.06em;box-shadow:0 6px 20px rgba(105,201,208,0.4);transition:all 0.35s var(--ease-bounce);"
+           data-en="🎵 Watch More on TikTok"
+           onmouseover="this.style.transform='translateY(-4px) scale(1.04)';this.style.boxShadow='0 12px 32px rgba(105,201,208,0.5)'"
+           onmouseout="this.style.transform='';this.style.boxShadow='0 6px 20px rgba(105,201,208,0.4)'">
+          🎵 TikTokでもっと見る
         </a>
       </div>
     </div>
@@ -2161,14 +2276,52 @@
     });
 
     // =============================================
-    // Lang switch
+    // Lang switch (EN ⇔ JP)
     // =============================================
-    document.querySelectorAll('.lang-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
+    const JP_TEXTS = {
+      'header.cta':   '🛒 オンラインショップ',
+      'logo.sub':     'MUSUBI CAFE ハワイ',
+    };
+    const EN_TEXTS = {
+      'header.cta':   '🛒 Online Shop',
+      'logo.sub':     'MUSUBI CAFE HAWAII',
+    };
+
+    let currentLang = localStorage.getItem('iyasume-lang') || 'jp';
+
+    function applyLang(lang) {
+      currentLang = lang;
+      localStorage.setItem('iyasume-lang', lang);
+
+      /* data-en 属性を持つ要素を切り替え */
+      document.querySelectorAll('[data-en]').forEach(el => {
+        if (!el.dataset.jp) el.dataset.jp = el.innerHTML;
+        el.innerHTML = lang === 'en' ? el.dataset.en : el.dataset.jp;
       });
+
+      /* lang-btn の active 更新 */
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === lang);
+      });
+
+      /* html lang 属性 */
+      document.documentElement.lang = lang === 'en' ? 'en' : 'ja';
+
+      /* ロゴ・ヘッダーCTAの固定テキスト切り替え */
+      const logoSub = document.querySelector('.logo-sub');
+      if (logoSub) logoSub.textContent = lang === 'en' ? EN_TEXTS['logo.sub'] : JP_TEXTS['logo.sub'];
+      const cta = document.querySelector('.header-cta');
+      if (cta) cta.textContent = lang === 'en' ? EN_TEXTS['header.cta'] : JP_TEXTS['header.cta'];
+    }
+
+    document.addEventListener('click', (e) => {
+      const btn = e.target.closest('.lang-btn');
+      if (!btn || !btn.dataset.lang) return;
+      applyLang(btn.dataset.lang);
     });
+
+    /* ページ読み込み時に保存済み言語を適用 */
+    if (currentLang === 'en') applyLang('en');
   </script>
 </body>
 </html>
