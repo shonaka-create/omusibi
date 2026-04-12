@@ -87,6 +87,12 @@
       el.innerHTML = lang === 'en' ? el.dataset.en : el.dataset.jp;
     });
 
+    /* data-en-placeholder 属性（input / textarea のプレースホルダー） */
+    document.querySelectorAll('[data-en-placeholder]').forEach(el => {
+      if (!el.dataset.jpPlaceholder) el.dataset.jpPlaceholder = el.placeholder || '';
+      el.placeholder = lang === 'en' ? el.dataset.enPlaceholder : el.dataset.jpPlaceholder;
+    });
+
     /* ランゲージボタンの active 更新 */
     document.querySelectorAll('.lang-btn').forEach(btn => {
       btn.classList.toggle('active', btn.dataset.lang === lang);
@@ -94,6 +100,9 @@
 
     /* html lang 属性 */
     document.documentElement.lang = lang === 'en' ? 'en' : 'ja';
+
+    /* カスタムイベント発火（マップ等のカスタムハンドラー用） */
+    document.dispatchEvent(new CustomEvent('langchange', { detail: { lang } }));
   }
 
   /* =============================================

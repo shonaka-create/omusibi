@@ -318,13 +318,13 @@
   <div class="news-ticker">
     <div class="news-ticker-inner">
       <div class="ticker-label">💌 CONTACT</div>
-      <span class="ticker-item">お問い合わせは通常2営業日以内にご返信します</span>
-      <span class="ticker-item">ケータリングは最低20名様から受付中</span>
-      <span class="ticker-item">採用情報はお気軽にご相談ください</span>
+      <span class="ticker-item" data-en="We reply within 2 business days">お問い合わせは通常2営業日以内にご返信します</span>
+      <span class="ticker-item" data-en="Catering available for 20+ guests">ケータリングは最低20名様から受付中</span>
+      <span class="ticker-item" data-en="Feel free to ask about career opportunities">採用情報はお気軽にご相談ください</span>
       <div class="ticker-label">💌 CONTACT</div>
-      <span class="ticker-item">お問い合わせは通常2営業日以内にご返信します</span>
-      <span class="ticker-item">ケータリングは最低20名様から受付中</span>
-      <span class="ticker-item">採用情報はお気軽にご相談ください</span>
+      <span class="ticker-item" data-en="We reply within 2 business days">お問い合わせは通常2営業日以内にご返信します</span>
+      <span class="ticker-item" data-en="Catering available for 20+ guests">ケータリングは最低20名様から受付中</span>
+      <span class="ticker-item" data-en="Feel free to ask about career opportunities">採用情報はお気軽にご相談ください</span>
     </div>
   </div>
 
@@ -336,30 +336,30 @@
         <!-- Left: Info -->
         <div class="contact-info">
           <div class="section-tag reveal">📞 REACH US</div>
-          <h2 class="section-title reveal reveal-delay-1">連絡先</h2>
+          <h2 class="section-title reveal reveal-delay-1" data-en="Contact Us">連絡先</h2>
           <p class="section-title-en reveal reveal-delay-2" style="margin-bottom:24px">Get in Touch</p>
 
           <div class="contact-info-card reveal reveal-delay-2">
             <div class="contact-info-icon">📧</div>
-            <div class="contact-info-title">メール</div>
+            <div class="contact-info-title" data-en="Email">メール</div>
             <div class="contact-info-value">
               <a href="mailto:info@iyasumehawaii.com" class="contact-info-link">info@iyasumehawaii.com</a><br>
-              通常2営業日以内にご返信します。
+              <span data-en="We usually reply within 2 business days.">通常2営業日以内にご返信します。</span>
             </div>
           </div>
 
           <div class="contact-info-card reveal reveal-delay-3">
             <div class="contact-info-icon">📞</div>
-            <div class="contact-info-title">お電話</div>
+            <div class="contact-info-title" data-en="Phone">お電話</div>
             <div class="contact-info-value">
               <a href="tel:+18089223555" class="contact-info-link">(808) 922-3555</a><br>
-              営業時間内にお電話ください（ワイキキ本店）
+              <span data-en="Please call during business hours (Waikiki Main)">営業時間内にお電話ください（ワイキキ本店）</span>
             </div>
           </div>
 
           <div class="contact-info-card reveal reveal-delay-4">
             <div class="contact-info-icon">📍</div>
-            <div class="contact-info-title">本社・お問い合わせ先</div>
+            <div class="contact-info-title" data-en="Head Office &amp; Contact">本社・お問い合わせ先</div>
             <div class="contact-info-value">
               2330 Kalakaua Ave<br>
               Honolulu, HI 96815<br>
@@ -370,10 +370,10 @@
           <div class="reveal reveal-delay-4">
             <div class="section-tag" style="margin-bottom:12px">📱 SNS</div>
             <div class="sns-links">
-              <a href="#" class="sns-link sns-link-ig">📸 Instagram</a>
-              <a href="#" class="sns-link sns-link-fb">📘 Facebook</a>
-              <a href="#" class="sns-link sns-link-yelp">⭐ Yelp</a>
-              <a href="#" class="sns-link sns-link-ta">✈️ TripAdvisor</a>
+              <a href="https://www.instagram.com/omusubi_jp_/" target="_blank" rel="noopener" class="sns-link sns-link-ig">📸 Instagram</a>
+              <a href="https://www.facebook.com/" target="_blank" rel="noopener" class="sns-link sns-link-fb">📘 Facebook</a>
+              <a href="https://www.yelp.com/" target="_blank" rel="noopener" class="sns-link sns-link-yelp">⭐ Yelp</a>
+              <a href="https://www.tripadvisor.com/" target="_blank" rel="noopener" class="sns-link sns-link-ta">✈️ TripAdvisor</a>
             </div>
           </div>
         </div>
@@ -387,69 +387,69 @@
             <form id="contact-form" novalidate>
               <div class="form-row">
                 <div class="form-group">
-                  <label class="form-label">お名前 <span>*</span></label>
-                  <input type="text" class="input" placeholder="山田 太郎" required>
+                  <label class="form-label"><span data-en="Your Name">お名前</span> <span>*</span></label>
+                  <input type="text" class="input" placeholder="山田 太郎" data-en-placeholder="Taro Yamada" required>
                 </div>
                 <div class="form-group">
-                  <label class="form-label">メールアドレス <span>*</span></label>
+                  <label class="form-label"><span data-en="Email Address">メールアドレス</span> <span>*</span></label>
                   <input type="email" class="input" placeholder="email@example.com" required>
                 </div>
               </div>
 
               <div class="form-group">
-                <label class="form-label">お問い合わせの種類 <span>*</span></label>
+                <label class="form-label"><span data-en="Inquiry Type">お問い合わせの種類</span> <span>*</span></label>
                 <div class="radio-group">
                   <label class="radio-btn selected">
                     <input type="radio" name="type" value="general" checked>
-                    💬 一般的なご質問
+                    <span data-en="💬 General Inquiry">💬 一般的なご質問</span>
                   </label>
                   <label class="radio-btn">
                     <input type="radio" name="type" value="catering">
-                    🍱 ケータリング
+                    <span data-en="🍱 Catering">🍱 ケータリング</span>
                   </label>
                   <label class="radio-btn">
                     <input type="radio" name="type" value="careers">
-                    💼 採用情報
+                    <span data-en="💼 Careers">💼 採用情報</span>
                   </label>
                   <label class="radio-btn">
                     <input type="radio" name="type" value="media">
-                    📸 メディア取材
+                    <span data-en="📸 Media">📸 メディア取材</span>
                   </label>
                   <label class="radio-btn">
                     <input type="radio" name="type" value="other">
-                    📝 その他
+                    <span data-en="📝 Other">📝 その他</span>
                   </label>
                 </div>
               </div>
 
               <div class="form-group">
-                <label class="form-label">件名 <span>*</span></label>
-                <input type="text" class="input" placeholder="お問い合わせの件名を入力してください" required>
+                <label class="form-label"><span data-en="Subject">件名</span> <span>*</span></label>
+                <input type="text" class="input" placeholder="お問い合わせの件名を入力してください" data-en-placeholder="Enter the subject of your inquiry" required>
               </div>
 
               <div class="form-group">
-                <label class="form-label">メッセージ <span>*</span></label>
-                <textarea class="textarea" placeholder="お問い合わせ内容を詳しくご記入ください..." required></textarea>
+                <label class="form-label"><span data-en="Message">メッセージ</span> <span>*</span></label>
+                <textarea class="textarea" placeholder="お問い合わせ内容を詳しくご記入ください..." data-en-placeholder="Please describe your inquiry in detail..." required></textarea>
               </div>
 
               <div class="form-group">
-                <label class="form-label">希望の店舗（任意）</label>
+                <label class="form-label"><span data-en="Preferred Location (optional)">希望の店舗（任意）</span></label>
                 <select class="input select">
-                  <option value="">選択してください</option>
-                  <option>ワイキキ本店</option>
-                  <option>アラモアナ店</option>
-                  <option>ホノルル空港店</option>
-                  <option>カカアコ店</option>
-                  <option>カイルア店</option>
-                  <option>カポレイ店</option>
-                  <option>マウイ店</option>
-                  <option>全店舗・本社</option>
+                  <option value="" data-en="Please select">選択してください</option>
+                  <option data-en="Waikiki Main">ワイキキ本店</option>
+                  <option data-en="Ala Moana">アラモアナ店</option>
+                  <option data-en="Honolulu Airport">ホノルル空港店</option>
+                  <option data-en="Kakaako">カカアコ店</option>
+                  <option data-en="Kailua">カイルア店</option>
+                  <option data-en="Kapolei">カポレイ店</option>
+                  <option data-en="Maui">マウイ店</option>
+                  <option data-en="All Locations / HQ">全店舗・本社</option>
                 </select>
               </div>
 
               <div class="form-submit">
-                <p class="form-note">送信後、自動返信メールをお送りします。<br>2営業日以内にご連絡いたします。</p>
-                <button type="submit" class="btn-submit">
+                <p class="form-note" data-en="An auto-reply will be sent after submission.<br>We will follow up within 2 business days.">送信後、自動返信メールをお送りします。<br>2営業日以内にご連絡いたします。</p>
+                <button type="submit" class="btn-submit" data-en="Send 🍙">
                   送信する 🍙
                 </button>
               </div>
@@ -458,10 +458,10 @@
 
           <div class="form-success" id="form-success">
             <div class="form-success-icon">🎉</div>
-            <div class="form-success-title">送信しました！ありがとうございます</div>
-            <p class="form-success-desc">2営業日以内にご連絡いたします。<br>それまでの間、SNSでいやす夢をフォローしてね！</p>
+            <div class="form-success-title" data-en="Message Sent! Thank You 🎉">送信しました！ありがとうございます</div>
+            <p class="form-success-desc" data-en="We'll get back to you within 2 business days.<br>In the meantime, follow us on social media!">2営業日以内にご連絡いたします。<br>それまでの間、SNSでいやす夢をフォローしてね！</p>
             <div style="margin-top:24px">
-              <a href="index.html" class="btn-primary">🏠 トップページへ戻る</a>
+              <a href="index.html" class="btn-primary" data-en="🏠 Back to Top">🏠 トップページへ戻る</a>
             </div>
           </div>
         </div>
@@ -474,33 +474,33 @@
     <div class="section-inner">
       <div class="text-center">
         <div class="section-tag reveal">❓ FAQ</div>
-        <h2 class="section-title reveal reveal-delay-1">よくあるご質問</h2>
+        <h2 class="section-title reveal reveal-delay-1" data-en="Frequently Asked Questions">よくあるご質問</h2>
         <p class="section-title-en reveal reveal-delay-2">Frequently Asked Questions</p>
       </div>
       <div class="faq-grid">
         <div class="faq-item reveal">
-          <div class="faq-q">グルテンフリーのメニューはありますか？</div>
-          <div class="faq-a">はい、ございます。塩むすびや梅干しむすびなど、グルテンフリー対応のメニューをご用意しています。スタッフにお申し付けいただければ、対応メニューをご案内します。</div>
+          <div class="faq-q" data-en="Do you have gluten-free options?">グルテンフリーのメニューはありますか？</div>
+          <div class="faq-a" data-en="Yes! We offer gluten-free options such as shio musubi and umeboshi musubi. Ask a staff member and we'll be happy to guide you.">はい、ございます。塩むすびや梅干しむすびなど、グルテンフリー対応のメニューをご用意しています。スタッフにお申し付けいただければ、対応メニューをご案内します。</div>
         </div>
         <div class="faq-item reveal reveal-delay-1">
-          <div class="faq-q">DoorDashで注文できますか？</div>
-          <div class="faq-a">はい！ホノルル全域のご住所へデリバリーが可能です。DoorDashアプリで「IYASUME」を検索してご注文ください。最短30分でお届けします。</div>
+          <div class="faq-q" data-en="Can I order on DoorDash?">DoorDashで注文できますか？</div>
+          <div class="faq-a" data-en="Yes! We deliver to all Honolulu addresses. Search for &quot;IYASUME&quot; in the DoorDash app and place your order. Delivery in as little as 30 minutes.">はい！ホノルル全域のご住所へデリバリーが可能です。DoorDashアプリで「IYASUME」を検索してご注文ください。最短30分でお届けします。</div>
         </div>
         <div class="faq-item reveal reveal-delay-2">
-          <div class="faq-q">ケータリングの最低人数は？</div>
-          <div class="faq-a">ケータリングは最低20名様から承っています。ご注文内容や日程によって異なりますので、まずはお気軽にお問い合わせください。</div>
+          <div class="faq-q" data-en="What is the minimum for catering?">ケータリングの最低人数は？</div>
+          <div class="faq-a" data-en="Catering is available for a minimum of 20 guests. Details vary by order and schedule, so feel free to reach out first.">ケータリングは最低20名様から承っています。ご注文内容や日程によって異なりますので、まずはお気軽にお問い合わせください。</div>
         </div>
         <div class="faq-item reveal reveal-delay-3">
-          <div class="faq-q">アレルギー対応はしてもらえますか？</div>
-          <div class="faq-a">アレルギーをお持ちのお客様には、成分表をお渡しすることができます。また、スタッフにお申し付けいただければ、アレルゲンに配慮したメニューのご提案も可能です。</div>
+          <div class="faq-q" data-en="Do you accommodate allergies?">アレルギー対応はしてもらえますか？</div>
+          <div class="faq-a" data-en="Guests with allergies can request an ingredient list. Staff can also suggest allergen-conscious menu options upon request.">アレルギーをお持ちのお客様には、成分表をお渡しすることができます。また、スタッフにお申し付けいただければ、アレルゲンに配慮したメニューのご提案も可能です。</div>
         </div>
         <div class="faq-item reveal reveal-delay-4">
-          <div class="faq-q">採用応募はどうすればいいですか？</div>
-          <div class="faq-a">このページのお問い合わせフォームから「採用情報」を選択してご連絡ください。または各店舗のスタッフに直接お声がけいただいても構いません。</div>
+          <div class="faq-q" data-en="How do I apply for a job?">採用応募はどうすればいいですか？</div>
+          <div class="faq-a" data-en="Select &quot;Careers&quot; in the contact form on this page. You can also speak directly with staff at any of our locations.">このページのお問い合わせフォームから「採用情報」を選択してご連絡ください。または各店舗のスタッフに直接お声がけいただいても構いません。</div>
         </div>
         <div class="faq-item reveal reveal-delay-5">
-          <div class="faq-q">メディア取材・コラボの問い合わせ先は？</div>
-          <div class="faq-a">お問い合わせフォームから「メディア取材」をお選びいただき、ご連絡ください。プレスリリースやメディアキットのご提供も可能です。</div>
+          <div class="faq-q" data-en="How do I contact you for media or collaborations?">メディア取材・コラボの問い合わせ先は？</div>
+          <div class="faq-a" data-en="Select &quot;Media&quot; in the contact form and reach out. Press releases and media kits are available upon request.">お問い合わせフォームから「メディア取材」をお選びいただき、ご連絡ください。プレスリリースやメディアキットのご提供も可能です。</div>
         </div>
       </div>
     </div>
@@ -511,31 +511,31 @@
     <div class="section-inner">
       <div class="text-center">
         <div class="section-tag reveal">🍱 CATERING</div>
-        <h2 class="section-title reveal reveal-delay-1">ケータリングプラン</h2>
+        <h2 class="section-title reveal reveal-delay-1" data-en="Catering Plans">ケータリングプラン</h2>
         <p class="section-title-en reveal reveal-delay-2">Perfect for Any Event</p>
       </div>
       <div class="catering-grid">
         <div class="catering-card reveal reveal-delay-1">
           <div class="catering-card-icon">💼</div>
-          <div class="catering-card-title">コーポレートプラン</div>
-          <p class="catering-card-desc">企業のランチミーティングやオフィスパーティーに。20〜100名様対応。</p>
+          <div class="catering-card-title" data-en="Corporate Plan">コーポレートプラン</div>
+          <p class="catering-card-desc" data-en="Perfect for office lunch meetings and corporate parties. Serves 20–100 guests.">企業のランチミーティングやオフィスパーティーに。20〜100名様対応。</p>
           <div class="catering-card-price">$8〜<span>/人</span></div>
         </div>
         <div class="catering-card reveal reveal-delay-2">
           <div class="catering-card-icon">💒</div>
-          <div class="catering-card-title">ウェディングプラン</div>
-          <p class="catering-card-desc">ハワイウェディングに和の彩りを。100名様以上の大型イベント対応。</p>
+          <div class="catering-card-title" data-en="Wedding Plan">ウェディングプラン</div>
+          <p class="catering-card-desc" data-en="Add a Japanese touch to your Hawaii wedding. Available for large events of 100+ guests.">ハワイウェディングに和の彩りを。100名様以上の大型イベント対応。</p>
           <div class="catering-card-price">$12〜<span>/人</span></div>
         </div>
         <div class="catering-card reveal reveal-delay-3">
           <div class="catering-card-icon">🎉</div>
-          <div class="catering-card-title">パーティープラン</div>
-          <p class="catering-card-desc">誕生日・記念日・ホームパーティーなど20〜50名様の小規模イベントに。</p>
+          <div class="catering-card-title" data-en="Party Plan">パーティープラン</div>
+          <p class="catering-card-desc" data-en="Great for birthdays, anniversaries, and home parties. Serves 20–50 guests.">誕生日・記念日・ホームパーティーなど20〜50名様の小規模イベントに。</p>
           <div class="catering-card-price">$10〜<span>/人</span></div>
         </div>
       </div>
       <div class="text-center reveal" style="margin-top:40px">
-        <a href="#contact-form" class="btn-primary">📩 ケータリングを相談する</a>
+        <a href="#contact-form" class="btn-primary" data-en="📩 Inquire About Catering">📩 ケータリングを相談する</a>
       </div>
     </div>
   </section>
@@ -545,8 +545,8 @@
     <div class="section-inner">
       <div class="reveal">
         <h2 class="highlight-title">🌺 Mahalo!</h2>
-        <p class="highlight-desc">ご連絡ありがとうございます。<br>アロハの心でお返事お待ちしています。</p>
-        <a href="index.html" class="btn-white">🏠 トップページへ</a>
+        <p class="highlight-desc" data-en="Thank you for reaching out.<br>We'll reply with the Aloha spirit.">ご連絡ありがとうございます。<br>アロハの心でお返事お待ちしています。</p>
+        <a href="index.html" class="btn-white" data-en="🏠 Back to Top">🏠 トップページへ</a>
       </div>
     </div>
   </div>
