@@ -385,15 +385,15 @@
             <div class="form-title" data-en="✉️ Send a Message">✉️ メッセージを送る</div>
             <p class="form-subtitle" data-en="Please fill in all fields and hit the send button.">すべての項目をご記入の上、送信ボタンを押してください。</p>
 
-            <form id="contact-form" novalidate>
+            <form id="contact-form" action="https://formspree.io/f/xjgjgden" method="POST" novalidate>
               <div class="form-row">
                 <div class="form-group">
                   <label class="form-label"><span data-en="Your Name">お名前</span> <span>*</span></label>
-                  <input type="text" class="input" placeholder="山田 太郎" data-en-placeholder="Taro Yamada" required>
+                  <input type="text" name="name" class="input" placeholder="山田 太郎" data-en-placeholder="Taro Yamada" required>
                 </div>
                 <div class="form-group">
                   <label class="form-label"><span data-en="Email Address">メールアドレス</span> <span>*</span></label>
-                  <input type="email" class="input" placeholder="email@example.com" required>
+                  <input type="email" name="email" class="input" placeholder="email@example.com" required>
                 </div>
               </div>
 
@@ -425,17 +425,17 @@
 
               <div class="form-group">
                 <label class="form-label"><span data-en="Subject">件名</span> <span>*</span></label>
-                <input type="text" class="input" placeholder="お問い合わせの件名を入力してください" data-en-placeholder="Enter the subject of your inquiry" required>
+                <input type="text" name="subject" class="input" placeholder="お問い合わせの件名を入力してください" data-en-placeholder="Enter the subject of your inquiry" required>
               </div>
 
               <div class="form-group">
                 <label class="form-label"><span data-en="Message">メッセージ</span> <span>*</span></label>
-                <textarea class="textarea" placeholder="お問い合わせ内容を詳しくご記入ください..." data-en-placeholder="Please describe your inquiry in detail..." required></textarea>
+                <textarea name="message" class="textarea" placeholder="お問い合わせ内容を詳しくご記入ください..." data-en-placeholder="Please describe your inquiry in detail..." required></textarea>
               </div>
 
               <div class="form-group">
                 <label class="form-label"><span data-en="Preferred Location (optional)">希望の店舗（任意）</span></label>
-                <select class="input select">
+                <select name="location" class="input select">
                   <option value="" data-en="Please select">選択してください</option>
                   <option data-en="Waikiki Main">ワイキキ本店</option>
                   <option data-en="Ala Moana">アラモアナ店</option>
@@ -566,11 +566,37 @@
       });
     });
 
-    // Form submit
-    document.getElementById('contact-form').addEventListener('submit', (e) => {
+    // Form submit → Formspree
+    document.getElementById('contact-form').addEventListener('submit', async (e) => {
       e.preventDefault();
-      document.getElementById('form-body').style.display = 'none';
-      document.getElementById('form-success').style.display = 'block';
+      const form = e.target;
+      const btn = form.querySelector('.btn-submit');
+      const originalText = btn.innerHTML;
+      btn.disabled = true;
+      btn.innerHTML = '送信中... ⏳';
+
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (response.ok) {
+          document.getElementById('form-body').style.display = 'none';
+          document.getElementById('form-success').style.display = 'block';
+        } else {
+          const data = await response.json();
+          const msg = data.errors ? data.errors.map(err => err.message).join(', ') : '送信に失敗しました。';
+          alert('エラー: ' + msg);
+          btn.disabled = false;
+          btn.innerHTML = originalText;
+        }
+      } catch (err) {
+        alert('エラー詳細: ' + err.message + '\n\nURL: ' + form.action);
+        btn.disabled = false;
+        btn.innerHTML = originalText;
+      }
     });
 
     // FAQ accordion
